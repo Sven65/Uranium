@@ -1,4 +1,6 @@
-local class = require 'lib.middleclass'
+local cwd = string.sub(..., 1, string.len(...) - string.len('components.guiElement'))
+
+local class = require(cwd .. '.lib.middleclass')
 
 local GUIElement = class('GUIElement')
 

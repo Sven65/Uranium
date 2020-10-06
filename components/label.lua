@@ -1,6 +1,8 @@
-local class = require 'lib.middleclass'
+local cwd = string.sub(..., 1, string.len(...) - string.len('components.label'))
 
-local GUIElement = require 'game.gui.guiElement'
+local class = require(cwd .. '.lib.middleclass')
+
+local GUIElement = require(cwd .. '.components.guiElement')
 
 local Label = class('Label', GUIElement)
 

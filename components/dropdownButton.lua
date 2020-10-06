@@ -1,11 +1,15 @@
-local class = require 'lib.middleclass'
+local cwd = string.sub(..., 1, string.len(...) - string.len('components.dropdownButton'))
 
-local ImageButton = require 'game.gui.imageButton'
+local class = require(cwd .. '.lib.middleclass')
+
+local ImageButton = require(cwd .. '.components.imageButton')
+
+local Button = require(cwd .. '.components.button')
 
 local DropdownButton = class('DropdownButton', ImageButton)
-local defaultColors = require 'game.enums.defaultColors'
 
-local Button = require 'button'
+--local defaultColors = require 'game.enums.defaultColors'
+
 
 function DropdownButton:createOptions ()
 	local font = self.font or love.graphics.getFont()

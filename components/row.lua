@@ -1,9 +1,8 @@
-local inspect = require 'lib.inspect'
-local Utils = require 'lib.utils'
+local cwd = string.sub(..., 1, string.len(...) - string.len('components.row'))
 
-local class = require 'lib.middleclass'
+local class = require(cwd .. '.lib.middleclass')
 
-local GUIElement = require 'game.gui.guiElement'
+local GUIElement = require(cwd .. '.components.guiElement')
 
 local Row = class('Row', GUIElement)
 

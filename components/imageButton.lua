@@ -1,9 +1,8 @@
-local inspect = require 'lib.inspect'
-local Utils = require 'lib.utils'
+local cwd = string.sub(..., 1, string.len(...) - string.len('.components.imageButton'))
 
-local class = require 'lib.middleclass'
+local class = require(cwd .. '.lib.middleclass')
 
-local Button = require 'game.gui.button'
+local Button = require(cwd .. '.components.button')
 
 local ImageButton = class('ImageButton', Button)
 

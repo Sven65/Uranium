@@ -1,8 +1,9 @@
-local class = require 'lib.middleclass'
+local cwd = string.sub(..., 1, string.len(...) - string.len('components.button'))
 
-local cwd   = (...):gsub('%.button$', '') .. "."
+local class = require(cwd .. '.lib.middleclass')
 
-local GUIElement = require (cwd .. 'guiElement')
+local GUIElement = require(cwd .. '.components.guiElement')
+
 local Button = class('Button', GUIElement)
 
 function Button:initialize (text, position, size, font)
