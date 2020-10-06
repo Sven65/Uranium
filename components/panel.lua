@@ -13,11 +13,10 @@ function Panel:initialize (position, size, backgroundColor)
 end
 
 function Panel:draw ()
+	print(love.graphics.getCanvas())
 	GUIElement.draw(self)
 
 	love.graphics.setColor(self.backgroundColor:to01())
-
-	print(self.size.height, self.size.width)
 	
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.size.width, self.size.height )
 	love.graphics.setColor(1, 1, 1, 1)

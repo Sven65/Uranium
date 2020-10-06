@@ -67,7 +67,7 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 
 	self.optionPanel = ScrollPanel(
 		{x = self.position.x, y = self.bottomRight.y},
-		{ width = self.size.width, height = self.optionListData.height},
+		{ width = self.size.width, height = 1},
 		defaultColors.blueHorizon,
 		{ width = self.size.width, height = 200}
 	)
@@ -75,21 +75,14 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	self:createOptions()
 	self:updateOptionPositions()
 
+	self.optionPanel:setCanvasHeight(self.optionListData.height)
+
 	self:addChild(self.optionPanel)
 end
 
 function DropdownButton:drawList ()
+	self.optionPanel:updateCanvas()
 	self.optionPanel:draw()
-
-	-- love.graphics.push()
-	-- love.graphics.setScissor(self.position.x, self.bottomRight.y, self.size.width, self.listHeight)
-
-	-- for i, v in ipairs(self.children) do
-	-- 	v:draw()
-	-- end
-
-	-- love.graphics.setScissor()
-	-- love.graphics.pop()
 end
 
 function DropdownButton:onLeftClick ()

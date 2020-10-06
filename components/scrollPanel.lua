@@ -14,16 +14,30 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 		y = 0,
 	}
 
-	self.clipRect = clipRect
-
 	self:setSize(nil, clipRect.height)
+	self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
+
+	self.clipQuad = love.graphics.newQuad(0, 0, self.size.width, clipRect.height, self.size.width, self.size.height)
+
+end
+
+function ScrollPanel:setCanvasHeight (height)
+	print(self.size.width, height)
+	self.canvas = love.graphics.newCanvas(self.size.width, height)
+
+	self.clipQuad = love.graphics.newQuad(0, 0, self.canvas:getWidth(), 200, self.canvas:getDimensions())
+end
+
+function ScrollPanel:updateCanvas ()
+	love.graphics.setCanvas(self.canvas)
+
+	Panel.draw(self)
+
+	love.graphics.setCanvas()
 end
 
 function ScrollPanel:draw ()
-	love.graphics.setScissor(self.position.x, self.position.y, self.size.width, self.clipRect.height)
-	Panel.draw(self)
-
-	love.graphics.setScissor()
+	love.graphics.draw(self.canvas, self.clipQuad, 0, 0)
 end
 
 return ScrollPanel
