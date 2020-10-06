@@ -6,10 +6,8 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Panel = class('Panel', GUIElement)
 
-local inspect = require 'lib.inspect'
-
 function Panel:initialize (position, size, backgroundColor)
-	GUIElement.initialize(self, size, position)
+	GUIElement.initialize(self, position, size)
 
 	self.backgroundColor = backgroundColor
 end
@@ -22,9 +20,14 @@ function Panel:draw ()
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.size.width, self.size.height )
 	love.graphics.setColor(1, 1, 1, 1)
 
+	love.graphics.push()
+	love.graphics.translate(self.position.x, self.position.y)
+
 	for i, v in ipairs(self.children) do
 		v:draw()
 	end
+	
+	love.graphics.pop()
 end
 
 return Panel

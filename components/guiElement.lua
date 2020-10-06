@@ -4,7 +4,7 @@ local class = require(cwd .. '.lib.middleclass')
 
 local GUIElement = class('GUIElement')
 
-function GUIElement:initialize (size, position, align, padding)
+function GUIElement:initialize (position, size, align, padding)
 	self.size = size
 	self.position = position
 
@@ -17,12 +17,16 @@ function GUIElement:initialize (size, position, align, padding)
 
 	self.children = {}
 
+	self.isChild = false
+
 	self.padding = {
 		left = padding.left or 0,
 		right = padding.right or 0,
 		top = padding.top or 0,
 		bottom = padding.bottom or 0,
 	}
+
+	print(self, self.position.x)
 
 	self.bottomRight = {
 		x = position.x + size.width,
@@ -89,6 +93,18 @@ end
 
 function GUIElement:update (dt) end
 
+function GUIElement:childTransform ()
+	if self.isChild then
+		love.graphics.push()
+		love.graphics.translate(self.position.x, self.position.y)
+	end
+end
+
+function GUIElement:resetTransform ()
+	if self.isChild then
+		love.graphics.pop()
+	end
+end
 
 function GUIElement:draw()
 	if self.showBoxes then
@@ -112,6 +128,7 @@ end
 
 
 function GUIElement:addChild (child)
+	child.isChild = true
 	table.insert(self.children, child)
 	self:calculateBoxes()
 end

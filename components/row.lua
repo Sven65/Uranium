@@ -7,7 +7,7 @@ local GUIElement = require(cwd .. '.components.guiElement')
 local Row = class('Row', GUIElement)
 
 function Row:initialize (position, padding)
-	GUIElement.initialize(self, { width = 0, height = 0}, position)
+	GUIElement.initialize(self, position, { width = 0, height = 0})
 
 	self.children = {}
 	self.position = position

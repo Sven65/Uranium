@@ -22,7 +22,7 @@ function Button:initialize (text, position, size, font)
 		}
 	end
 
-	GUIElement.initialize(self, size, position)
+	GUIElement.initialize(self, position, size)
 
 	self.textPosition = {
 		x = 0,

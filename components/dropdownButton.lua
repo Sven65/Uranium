@@ -127,9 +127,14 @@ end
 function DropdownButton:update (dt)
 	ImageButton.update(self, dt)
 
+	love.graphics.push()
+	love.graphics.translate(self.position.x, self.position.y)
+
 	for i, v in ipairs(self.children) do
 		v:update(dt)
 	end
+
+	love.graphics.pop()
 end
 
 return DropdownButton

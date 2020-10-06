@@ -12,7 +12,7 @@ function Label:initialize (font, text, position)
 
 	local width, height = self.text:getDimensions()
 
-	GUIElement.initialize(self, { width = width, height = height }, position)
+	GUIElement.initialize(self, position, { width = width, height = height })
 
 end
 
