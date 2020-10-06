@@ -13,7 +13,6 @@ function Panel:initialize (position, size, backgroundColor)
 end
 
 function Panel:draw ()
-	print(love.graphics.getCanvas())
 	GUIElement.draw(self)
 
 	love.graphics.setColor(self.backgroundColor:to01())

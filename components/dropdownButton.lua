@@ -67,9 +67,9 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 
 	self.optionPanel = ScrollPanel(
 		{x = self.position.x, y = self.bottomRight.y},
-		{ width = self.size.width, height = 1},
+		{ width = self.size.width, height = 500},
 		defaultColors.blueHorizon,
-		{ width = self.size.width, height = 200}
+		{ width = self.size.width, height = listHeight}
 	)
 
 	self:createOptions()

@@ -15,17 +15,21 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	}
 
 	self:setSize(nil, clipRect.height)
-	self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
+	self.canvas = love.graphics.newCanvas()
 
-	self.clipQuad = love.graphics.newQuad(0, 0, self.size.width, clipRect.height, self.size.width, self.size.height)
+	self.clipQuad = love.graphics.newQuad(0, 0, self.size.width, clipRect.height, clipRect.width, self.size.height)
 
+	self.clipRect = clipRect
+
+	print (self.clipRect.width, self.clipRect.height)
 end
 
 function ScrollPanel:setCanvasHeight (height)
-	print(self.size.width, height)
-	self.canvas = love.graphics.newCanvas(self.size.width, height)
+	print("SIZE", self.size.width, height)
+	
 
-	self.clipQuad = love.graphics.newQuad(0, 0, self.canvas:getWidth(), 200, self.canvas:getDimensions())
+
+	self.clipQuad = love.graphics.newQuad(0, 0, self.canvas:getWidth(), self.clipRect.height, self.canvas:getDimensions())
 end
 
 function ScrollPanel:updateCanvas ()
@@ -37,7 +41,9 @@ function ScrollPanel:updateCanvas ()
 end
 
 function ScrollPanel:draw ()
-	love.graphics.draw(self.canvas, self.clipQuad, 0, 0)
+	if self.canvas ~= nil then
+		love.graphics.draw(self.canvas, self.clipQuad)
+	end
 end
 
 return ScrollPanel
