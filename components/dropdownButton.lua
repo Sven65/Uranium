@@ -75,20 +75,20 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	self:createOptions()
 	self:updateOptionPositions()
 
-	self.optionPanel:setCanvasHeight(self.optionListData.height)
-
 	self:addChild(self.optionPanel)
 end
 
 function DropdownButton:drawList ()
-	self.optionPanel:updateCanvas()
 	self.optionPanel:draw()
 end
 
 function DropdownButton:onLeftClick ()
 	self.isOpened = not self.isOpened
+	
 
 	if self.isOpened then
+		self.optionPanel:updateCanvas()
+
 		self:updateOptionPositions()
 	end
 end
