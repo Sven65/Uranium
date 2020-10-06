@@ -12,4 +12,5 @@ return {
 	red = Color.fromHex('#ff0000'),
 	highBlue = Color.fromHex('#45aaf2'),
 	boyzone = Color.fromHex('#2d98da'),
+	royalBlue = Color.fromHex('#3867d6')
 }

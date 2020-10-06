@@ -10,7 +10,9 @@ local FlatButton = class('FlatButton', Button)
 
 local defaultColors = require(cwd .. '.data.defaultColors')
 
-function FlatButton:initialize (text, position, size, font)
+function FlatButton:initialize (text, colors, position, size, font)
+	self.colors = colors
+
 	if size == nil then
 		local width, height = buttonImage:getDimensions()
 
@@ -24,7 +26,7 @@ end
 function FlatButton:draw ()
 	Button.draw(self)
 
-	love.graphics.setColor(defaultColors.highBlue:to01())
+	love.graphics.setColor(self.colors[self.currentState]:to01())
 	love.graphics.draw(buttonImage, self.position.x, self.position.y)
 	love.graphics.setColor(1,1,1,1)
 
