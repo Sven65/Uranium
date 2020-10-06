@@ -10,4 +10,6 @@ return {
 	blueHorizon = Color.fromHex('#4b6584'),
 	twinkleBlue = Color.fromHex('#d1d8e0'),
 	red = Color.fromHex('#ff0000'),
+	highBlue = Color.fromHex('#45aaf2'),
+	boyzone = Color.fromHex('#2d98da'),
 }
