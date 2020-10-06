@@ -1,17 +1,12 @@
-local inspect = require 'lib.inspect'
-local Utils = require 'lib.utils'
-
 local class = require 'lib.middleclass'
 
-local defaultColors = require 'game.enums.defaultColors'
+local cwd   = (...):gsub('%.button$', '') .. "."
 
-
-local GUIElement = require 'game.gui.guiElement'
-
+local GUIElement = require (cwd .. 'guiElement')
 local Button = class('Button', GUIElement)
 
 function Button:initialize (text, position, size, font)
-	local font = font or love.graphics.getFont()
+	font = font or love.graphics.getFont()
 
 	self.font = font
 	
@@ -28,7 +23,6 @@ function Button:initialize (text, position, size, font)
 
 	GUIElement.initialize(self, size, position)
 
-	
 	self.textPosition = {
 		x = 0,
 		y = 0,
@@ -40,7 +34,6 @@ function Button:initialize (text, position, size, font)
 	}
 
 	self.backgroundColor = nil
-	
 	self:calculateTextCenter()
 end
 
@@ -87,7 +80,7 @@ function Button:draw ()
 			love.graphics.setColor(self.backgroundColor:to01())
 			love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.size.width, self.size.height )
 
-			love.graphics.setColor(defaultColors.white:to01())
+			love.graphics.setColor(1, 1, 1, 1)
 		end
 
 		love.graphics.draw(self.text, self.textPosition.x, self.textPosition.y)
