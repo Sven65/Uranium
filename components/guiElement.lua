@@ -4,8 +4,6 @@ local class = require(cwd .. '.lib.middleclass')
 
 local GUIElement = class('GUIElement')
 
-local showBoxes = false
-
 function GUIElement:initialize (size, position, align, padding)
 	self.size = size
 	self.position = position
@@ -16,6 +14,8 @@ function GUIElement:initialize (size, position, align, padding)
 	self.previousState = nil
 
 	padding = padding or {}
+
+	self.children = {}
 
 	self.padding = {
 		left = padding.left or 0,
@@ -87,7 +87,8 @@ function GUIElement:update (dt) end
 
 
 function GUIElement:draw()
-	if showBoxes then
+	love.graphics.print("Show box: "..tostring(self.showBoxes), 0, 0)
+	if self.showBoxes then
 		love.graphics.setColor(0, 1, 0, 1)
 
 		love.graphics.rectangle(
@@ -106,13 +107,13 @@ function GUIElement:isHovering (x, y)
 	return Utils.isInRect(self.position.x, self.position.y, self.bottomRight.x, self.bottomRight.y, x, y)
 end
 
--- Events
 
-function love:keypressed (key)
-	if key == 'f6' then
-		showBoxes = not showBoxes
-	end
+function GUIElement:addChild (child)
+	table.insert(self.children, child)
+	self:calculateBoxes()
 end
+
+-- Events
 
 function GUIElement:mousemoved (x, y)
 	if self:isHovering(x, y) then
@@ -155,5 +156,14 @@ function GUIElement:mousereleased (x, y, button)
 	end
 end
 
+function GUIElement:wheelmoved (x, y)
+	if self.currentState ~= 'hover' then return end
+end
+
+function GUIElement:keypressed(key)
+	if key == 'f6' then
+		self.showBoxes = not self.showBoxes
+	end
+end
 
 return GUIElement
