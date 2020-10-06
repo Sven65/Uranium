@@ -43,7 +43,7 @@ function Row:calculatePositions ()
 	elseif self.align == 'default' then
 		-- Let children handle align
 
-		for i, v in ipairs(self.children) do
+		for _, v in ipairs(self.children) do
 			local eWidth = v:getWidth()
 			local xPos = 0
 

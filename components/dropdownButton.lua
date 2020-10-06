@@ -11,11 +11,15 @@ local defaultColors = require(cwd .. 'data.defaultColors')
 
 local DropdownButton = class('DropdownButton', ImageButton)
 
+local inspect = require 'lib.inspect'
+
 function DropdownButton:createOptions ()
 	local font = self.font or love.graphics.getFont()
 
 	for i, v in ipairs(self.options) do
 		local optionElement = Button(v, {x = 0, y = 0}, nil, font)
+
+		optionElement.align = 'left'
 
 		function optionElement.onLeftClick (this)
 			if not self.isOpened then return end
@@ -38,8 +42,16 @@ function DropdownButton:createOptions ()
 
 		self.optionListData.height = self.optionListData.height + elHeight
 
+		local yPos = self.optionPanel.position.y + (elHeight * (i - 1))
+
+		optionElement:setPosition(self.optionPanel.position.x, yPos)
+
 		self.optionPanel:addChild(optionElement)
+
+		print("optionElement", inspect(optionElement.position))
 	end
+
+	--self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
 function DropdownButton:updateOptionPositions ()
@@ -52,9 +64,12 @@ function DropdownButton:updateOptionPositions ()
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
+
 function DropdownButton:initialize (images, text, position, size, font, options, listHeight)
 	ImageButton.initialize(self, images, text, position, size, font)
 	self.options = options
+
+	print("option count", #options)
 
 	self.isOpened = false
 
@@ -67,18 +82,27 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 
 	self.optionPanel = ScrollPanel(
 		{x = self.position.x, y = self.bottomRight.y},
-		{ width = self.size.width, height = 500},
+		{ width = self.size.width, height = self.size.height},
 		defaultColors.blueHorizon,
 		{ width = self.size.width, height = listHeight}
 	)
 
+	print("bottom", inspect(self.bottomRight))
+
 	self:createOptions()
 	self:updateOptionPositions()
 
+	self.optionPanel:setSize(self.size.width, self.optionListData.height)
+	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
+
 	self:addChild(self.optionPanel)
+
+
 end
 
 function DropdownButton:drawList ()
+	self.optionPanel:updateCanvas()
+
 	self.optionPanel:draw()
 end
 
@@ -87,9 +111,8 @@ function DropdownButton:onLeftClick ()
 	
 
 	if self.isOpened then
-		self.optionPanel:updateCanvas()
+		--self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 
-		self:updateOptionPositions()
 	end
 end
 

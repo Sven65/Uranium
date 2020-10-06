@@ -20,13 +20,6 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	self.clipRect = clipRect
 
 	self.clipQuad = love.graphics.newQuad(self.position.x, self.position.y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
-
-
-	print (self.clipRect.width, self.clipRect.height)
-end
-
-function ScrollPanel:setCanvasHeight (height)
-	self.clipQuad = love.graphics.newQuad(self.position.x, self.position.y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
 end
 
 function ScrollPanel:updateCanvas ()
@@ -47,6 +40,26 @@ function ScrollPanel:mousemoved (x, y)
 	Panel.mousemoved(self, x, y)
 	if self.currentState == 'hover' then
 		self:updateCanvas()
+	end
+end
+
+function ScrollPanel:wheelmoved (x, y)
+	Panel.wheelmoved(self, x, y)
+	if self.currentState == 'hover' then
+		self.scroll = {
+			x = self.scroll.x + x * 2,
+			y = self.scroll.y - y * 2
+		}
+
+		print("Scroll", self.scroll.x, self.scroll.y)
+		print("pos", self.position.x, self.position.y)
+
+		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
+
+		self.clipQuad:setViewport(self.position.x + self.scroll.x, self.position.y + self.scroll.y, clipWidth, clipHeight)
+
+		print("Quad", self.clipQuad:getViewport())
+
 	end
 end
 

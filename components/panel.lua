@@ -15,20 +15,16 @@ function Panel:initialize (position, size, backgroundColor)
 end
 
 function Panel:draw ()
-	print("Panel color", inspect(self.backgroundColor:to01()))
+	GUIElement.draw(self)
 
 	love.graphics.setColor(self.backgroundColor:to01())
-	
+
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.size.width, self.size.height )
 	love.graphics.setColor(1, 1, 1, 1)
-	
+
 	for i, v in ipairs(self.children) do
 		v:draw()
 	end
-	
-	GUIElement.draw(self)
-
-
 end
 
 return Panel

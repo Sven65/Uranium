@@ -101,7 +101,7 @@ function GUIElement:draw()
 			self.bottomRight.x - self.position.x,
 			self.bottomRight.y - self.position.y
 		)
-
+		
 		love.graphics.setColor(1,1,1,1)
 	end
 end
