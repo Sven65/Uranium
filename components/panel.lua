@@ -16,13 +16,16 @@ function Panel:draw ()
 	GUIElement.draw(self)
 
 	love.graphics.setColor(self.backgroundColor:to01())
+
+	print(self.size.height, self.size.width)
+	
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.size.width, self.size.height )
+	love.graphics.setColor(1, 1, 1, 1)
 
 	for i, v in ipairs(self.children) do
 		v:draw()
 	end
 
-	love.graphics.setColor(1, 1, 1, 1)
 
 
 end

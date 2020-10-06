@@ -15,6 +15,8 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	}
 
 	self.clipRect = clipRect
+
+	self:setSize(nil, clipRect.height)
 end
 
 function ScrollPanel:draw ()

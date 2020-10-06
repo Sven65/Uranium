@@ -83,11 +83,14 @@ function GUIElement:setPosition (x, y)
 	self:calculateBoxes()
 end
 
+function GUIElement:getPaddedPosition ()
+	--return self.position.x - self.padding.left, self.position.y 
+end
+
 function GUIElement:update (dt) end
 
 
 function GUIElement:draw()
-	love.graphics.print("Show box: "..tostring(self.showBoxes), 0, 0)
 	if self.showBoxes then
 		love.graphics.setColor(0, 1, 0, 1)
 

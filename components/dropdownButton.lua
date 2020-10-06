@@ -48,6 +48,8 @@ function DropdownButton:updateOptionPositions ()
 
 		v:setPosition(self.position.x, yPos)
 	end
+
+	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
 function DropdownButton:initialize (images, text, position, size, font, options, listHeight)
@@ -63,8 +65,6 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 
 	self.listHeight = listHeight or 0
 
-	print(self.position.x, self.position.y, self.size.width, self.size.height, self.bottomRight.y)
-
 	self.optionPanel = ScrollPanel(
 		{x = self.position.x, y = self.bottomRight.y},
 		{ width = self.size.width, height = self.optionListData.height},
@@ -75,10 +75,6 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	self:createOptions()
 	self:updateOptionPositions()
 
-	self.optionPanel:setSize(nil, self.optionListData.height)
-
-	self.optionPanel.drawAsChild = false
-
 	self:addChild(self.optionPanel)
 end
 
@@ -87,14 +83,6 @@ function DropdownButton:drawList ()
 
 	-- love.graphics.push()
 	-- love.graphics.setScissor(self.position.x, self.bottomRight.y, self.size.width, self.listHeight)
-
-
-	-- love.graphics.setColor(defaultColors.blueHorizon:to01())
-	-- love.graphics.rectangle( 'fill', self.position.x, self.bottomRight.y, self.size.width, self.optionListData.height )
-
-	
-
-	-- love.graphics.setColor(defaultColors.white:to01())
 
 	-- for i, v in ipairs(self.children) do
 	-- 	v:draw()
