@@ -8,8 +8,16 @@ local Button = require(cwd .. '.components.button')
 
 local FlatButton = class('FlatButton', Button)
 
-local defaultColors = require(cwd .. '.data.defaultColors')
-
+-- Creates a new FlatButton
+-- @tparam string text The button text
+-- @tparam table colors The colors to use for the different button states
+-- @field Color colors.default Default button color
+-- @field Color colors.hover The color to use when the button is hovered
+-- @field Color colors.click The color to use when the button is clicked
+-- @tparam Position position The position of the button
+-- @tparan ?Size size The size of the button
+-- @tparam Font The LÖVE font to use for the button
+-- @treturn FlatButton
 function FlatButton:initialize (text, colors, position, size, font)
 	self.colors = colors
 
@@ -22,7 +30,7 @@ function FlatButton:initialize (text, colors, position, size, font)
 	Button.initialize(self, text, position, size, font)
 end
 
-
+-- Draws the Button
 function FlatButton:draw ()
 	Button.draw(self)
 
