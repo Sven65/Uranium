@@ -6,6 +6,7 @@ local Panel = require(cwd .. '.components.panel')
 
 local ScrollPanel = class('ScrollPanel', Panel)
 
+local utils = require(cwd .. 'lib.utils')
 
 function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	Panel.initialize(self, position, size, backgroundColor)
@@ -67,19 +68,32 @@ end
 function ScrollPanel:wheelmoved (x, y)
 	Panel.wheelmoved(self, x, y)
 	if self.currentState == 'hover' then
-		self.scroll = {
-			x = self.scroll.x + x * 5,
-			y = self.scroll.y - y * 5
-		}
-
+		local scrollFactor = 5
+		
 		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
-		if self.scroll.y < 0 then
-			self.scroll.y = 0
-		end
+		self.scroll.x = utils.clamp(self.scroll.x + x * scrollFactor, 0, clipHeight)
+		self.scroll.y = utils.clamp(self.scroll.y - y * scrollFactor, 0, clipHeight)
 
-		if self.scroll.y > clipHeight then
-			self.scroll.y = clipHeight
+		for _, v in ipairs(self.children) do
+			if v.beforeScrollPos == nil then
+				v.beforeScrollPos = {
+					x = v.realPosition.x,
+					y = v.realPosition.y
+				}
+
+				v.beforeScrollBottomPos = {
+					x = v.realBottomRight.x,
+					y = v.realBottomRight.y
+				}
+			end
+
+			v.realPosition.x = v.beforeScrollPos.x + self.scroll.x
+			v.realPosition.y = v.beforeScrollPos.y - self.scroll.y
+
+
+			v.realBottomRight.x = v.beforeScrollBottomPos.x + self.scroll.x
+			v.realBottomRight.y = v.beforeScrollBottomPos.y - self.scroll.y
 		end
 
 		self.clipQuad:setViewport(self.position.x + self.scroll.x, self.scroll.y, clipWidth, clipHeight)

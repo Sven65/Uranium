@@ -16,4 +16,8 @@ function utils.isInRect (topLeftX, topLeftY, bottomRightX, bottomRightY, pointX,
 		and pointY <= bottomRightY
 end
 
+function utils.clamp (value, min, max)
+	return math.max(min, math.min(max, value))
+end
+
 return utils
