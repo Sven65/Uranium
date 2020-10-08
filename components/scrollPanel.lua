@@ -16,22 +16,43 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	}
 
 	self:setSize(nil, clipRect.height)
-	self.canvas = love.graphics.newCanvas()
+	self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
 
 	self.clipRect = clipRect
 
-	self.clipQuad = love.graphics.newQuad(self.position.x, self.position.y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
+	self.clipQuad = love.graphics.newQuad(0, 0, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
+end
+
+function ScrollPanel:setSize(width, height)
+	Panel.setSize(self, width, height)
+
+	if self.clipQuad ~= nil and self.canvas ~= nil then
+
+		self.canvas:release()
+		self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
+		local x, y, w, h = self.clipQuad:getViewport()
+		self.clipQuad:setViewport(x, y, w, h, self.canvas:getDimensions())
+	end
 end
 
 function ScrollPanel:updateCanvas ()
 	love.graphics.setCanvas(self.canvas)
 
-	Panel.draw(self)
+	for _, v in ipairs(self.children) do
+		v:draw()
+	end
+
+	love.graphics.setColor(1,1,1,1)
 
 	love.graphics.setCanvas()
 end
 
 function ScrollPanel:draw ()
+	love.graphics.setColor(self.backgroundColor:to01())
+	
+	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height )
+	love.graphics.setColor(0, 0, 0, 1)
+
 	love.graphics.draw(self.canvas, self.clipQuad, self.position.x, self.position.y)
 end
 
@@ -54,7 +75,7 @@ function ScrollPanel:wheelmoved (x, y)
 
 		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
-		self.clipQuad:setViewport(self.position.x + self.scroll.x, self.position.y + self.scroll.y, clipWidth, clipHeight)
+		self.clipQuad:setViewport(self.position.x + self.scroll.x, self.scroll.y, clipWidth, clipHeight)
 
 	end
 end

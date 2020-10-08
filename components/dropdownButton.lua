@@ -28,22 +28,21 @@ function DropdownButton:createOptions ()
 			self:setText(v)
 		end
 
-		function optionElement:onEnter ()
-			self:setBackgroundColor(defaultColors.red)
+		function optionElement.onEnter (this)
+			if not self.isOpened then return end
+
+			this:setBackgroundColor(defaultColors.white)
 		end
 
-		function optionElement:onExit ()
-			self:setBackgroundColor(nil)
+		function optionElement.onExit (this)
+			if not self.isOpened then return end
+
+			this:setBackgroundColor(nil)
 		end
 		
 		local elHeight = optionElement:getHeight()
 
 		self.optionListData.height = self.optionListData.height + elHeight
-
-		local yPos = self.optionPanel.position.y + (elHeight * (i - 1))
-
-		optionElement:setPosition(self.optionPanel.position.x, yPos)
-
 		self.optionPanel:addChild(optionElement)
 	end
 
@@ -52,7 +51,7 @@ end
 
 function DropdownButton:updateOptionPositions ()
 	for i, v in ipairs(self.optionPanel.children) do
-		local yPos = self.bottomRight.y + (v:getHeight() * (i - 1))
+		local yPos = (v:getHeight() * (i - 1))
 
 		v:setPosition(self.position.x, yPos)
 	end
@@ -88,13 +87,9 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 
 	self:addChild(self.optionPanel)
-
-
 end
 
 function DropdownButton:drawList ()
-	self.optionPanel:updateCanvas()
-
 	love.graphics.push()
 
 	love.graphics.translate(self.position.x, self.position.y)
@@ -106,12 +101,6 @@ end
 
 function DropdownButton:onLeftClick ()
 	self.isOpened = not self.isOpened
-	
-
-	if self.isOpened then
-		--self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
-
-	end
 end
 
 function DropdownButton:draw ()
@@ -120,19 +109,6 @@ function DropdownButton:draw ()
 	if self.isOpened then
 		self:drawList()
 	end
-end
-
-function DropdownButton:update (dt)
-	ImageButton.update(self, dt)
-
-	love.graphics.push()
-	love.graphics.translate(self.position.x, self.position.y)
-
-	for i, v in ipairs(self.children) do
-		v:update(dt)
-	end
-
-	love.graphics.pop()
 end
 
 return DropdownButton

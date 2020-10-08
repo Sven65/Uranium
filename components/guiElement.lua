@@ -111,6 +111,16 @@ function GUIElement:draw()
 			self.bottomRight.x - self.position.x,
 			self.bottomRight.y - self.position.y
 		)
+
+		love.graphics.setColor(1, 0, 0, 1)
+
+		love.graphics.rectangle(
+			'line',
+			self.realPosition.x,
+			self.realPosition.y,
+			self.realBottomRight.x - self.realPosition.x,
+			self.realBottomRight.y - self.realPosition.y
+		)
 		
 		love.graphics.setColor(1,1,1,1)
 	end
