@@ -38,7 +38,7 @@ function Row:calculatePositions ()
 
 			local xPos = startX + eWidth * i + self.padding * i
 
-			v:setPosition(xPos, self.position.y - self.size.height)
+			v:setPosition(xPos, v.position.y)
 		end
 	elseif self.align == 'default' then
 		-- Let children handle align
@@ -53,7 +53,7 @@ function Row:calculatePositions ()
 				xPos = self.position.x / 2 + v.padding.left
 			end
 
-			v:setPosition(xPos, self.position.y - self.size.height)
+			v:setPosition(xPos, v.position.y)
 		end
 	end
 end
@@ -67,9 +67,15 @@ end
 function Row:draw ()
 	GUIElement.draw(self)
 
+	love.graphics.push()
+
+	love.graphics.translate(self.position.x, self.position.y)
+
 	for _, v in ipairs(self.children) do
 		v:draw()
 	end
+
+	love.graphics.pop()
 end
 
 function Row:update (dt)

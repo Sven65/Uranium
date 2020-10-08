@@ -26,8 +26,6 @@ function GUIElement:initialize (position, size, align, padding)
 		bottom = padding.bottom or 0,
 	}
 
-	print(self, self.position.x)
-
 	self.bottomRight = {
 		x = position.x + size.width,
 		y = position.y + size.height,
@@ -87,10 +85,6 @@ function GUIElement:setPosition (x, y)
 	self:calculateBoxes()
 end
 
-function GUIElement:getPaddedPosition ()
-	--return self.position.x - self.padding.left, self.position.y 
-end
-
 function GUIElement:update (dt) end
 
 function GUIElement:childTransform ()
@@ -123,7 +117,7 @@ function GUIElement:draw()
 end
 
 function GUIElement:isHovering (x, y)
-	return Utils.isInRect(self.position.x, self.position.y, self.bottomRight.x, self.bottomRight.y, x, y)
+	return Utils.isInRect(self.realPosition.x, self.realPosition.y, self.realBottomRight.x, self.realBottomRight.y, x, y)
 end
 
 
@@ -131,6 +125,31 @@ function GUIElement:addChild (child)
 	child.isChild = true
 	table.insert(self.children, child)
 	self:calculateBoxes()
+end
+
+function GUIElement:calculateRealPositions ()
+	love.graphics.push()
+
+	love.graphics.translate(self.position.x, self.position.y)
+
+
+	local screenX, screenY = love.graphics.transformPoint(0, 0)
+
+	self.realPosition = {
+		x = screenX,
+		y = screenY,
+	}
+
+	self.realBottomRight = {
+		x = screenX + self.size.width,
+		y = screenY + self.size.height,
+	}
+	
+	for _, v in ipairs(self.children) do
+		v:calculateRealPositions()
+	end
+
+	love.graphics.pop()
 end
 
 -- Events

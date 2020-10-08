@@ -51,14 +51,9 @@ function ScrollPanel:wheelmoved (x, y)
 			y = self.scroll.y - y * 2
 		}
 
-		print("Scroll", self.scroll.x, self.scroll.y)
-		print("pos", self.position.x, self.position.y)
-
 		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
 		self.clipQuad:setViewport(self.position.x + self.scroll.x, self.position.y + self.scroll.y, clipWidth, clipHeight)
-
-		print("Quad", self.clipQuad:getViewport())
 
 	end
 end

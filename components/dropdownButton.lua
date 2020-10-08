@@ -11,8 +11,6 @@ local defaultColors = require(cwd .. 'data.defaultColors')
 
 local DropdownButton = class('DropdownButton', ImageButton)
 
-local inspect = require 'lib.inspect'
-
 function DropdownButton:createOptions ()
 	local font = self.font or love.graphics.getFont()
 
@@ -47,8 +45,6 @@ function DropdownButton:createOptions ()
 		optionElement:setPosition(self.optionPanel.position.x, yPos)
 
 		self.optionPanel:addChild(optionElement)
-
-		print("optionElement", inspect(optionElement.position))
 	end
 
 	--self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
@@ -69,8 +65,6 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	ImageButton.initialize(self, images, text, position, size, font)
 	self.options = options
 
-	print("option count", #options)
-
 	self.isOpened = false
 
 	self.optionListData = {
@@ -81,13 +75,11 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	self.listHeight = listHeight or 0
 
 	self.optionPanel = ScrollPanel(
-		{x = self.position.x, y = self.bottomRight.y},
+		{x = 0, y = self.size.height},
 		{ width = self.size.width, height = self.size.height},
 		defaultColors.blueHorizon,
 		{ width = self.size.width, height = listHeight}
 	)
-
-	print("bottom", inspect(self.bottomRight))
 
 	self:createOptions()
 	self:updateOptionPositions()
@@ -103,7 +95,13 @@ end
 function DropdownButton:drawList ()
 	self.optionPanel:updateCanvas()
 
+	love.graphics.push()
+
+	love.graphics.translate(self.position.x, self.position.y)
+
 	self.optionPanel:draw()
+
+	love.graphics.pop()
 end
 
 function DropdownButton:onLeftClick ()
