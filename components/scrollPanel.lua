@@ -37,12 +37,11 @@ end
 
 function ScrollPanel:updateCanvas ()
 	love.graphics.setCanvas(self.canvas)
+	love.graphics.clear()
 
 	for _, v in ipairs(self.children) do
 		v:draw()
 	end
-
-	love.graphics.setColor(1,1,1,1)
 
 	love.graphics.setCanvas()
 end
@@ -51,7 +50,7 @@ function ScrollPanel:draw ()
 	love.graphics.setColor(self.backgroundColor:to01())
 	
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height )
-	love.graphics.setColor(0, 0, 0, 1)
+	love.graphics.setColor(1, 1, 1, 1)
 
 	love.graphics.draw(self.canvas, self.clipQuad, self.position.x, self.position.y)
 end
@@ -69,11 +68,19 @@ function ScrollPanel:wheelmoved (x, y)
 	Panel.wheelmoved(self, x, y)
 	if self.currentState == 'hover' then
 		self.scroll = {
-			x = self.scroll.x + x * 2,
-			y = self.scroll.y - y * 2
+			x = self.scroll.x + x * 5,
+			y = self.scroll.y - y * 5
 		}
 
 		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
+
+		if self.scroll.y < 0 then
+			self.scroll.y = 0
+		end
+
+		if self.scroll.y > clipHeight then
+			self.scroll.y = clipHeight
+		end
 
 		self.clipQuad:setViewport(self.position.x + self.scroll.x, self.scroll.y, clipWidth, clipHeight)
 

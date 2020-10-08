@@ -31,7 +31,7 @@ function DropdownButton:createOptions ()
 		function optionElement.onEnter (this)
 			if not self.isOpened then return end
 
-			this:setBackgroundColor(defaultColors.white)
+			this:setBackgroundColor(defaultColors.red)
 		end
 
 		function optionElement.onExit (this)
