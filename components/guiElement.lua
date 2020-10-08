@@ -154,7 +154,20 @@ end
 
 -- Events
 
+function GUIElement:doRecursive(element, func, ...)
+	for _, v in ipairs(element.children or element) do
+		if v.children ~= nil and #v.children > 0 then
+			v[func](v, ...)
+			self:doRecursive(v.children, func, ...)
+		else
+			v[func](v, ...)
+		end
+	end
+end
+
 function GUIElement:mousemoved (x, y)
+	self:doRecursive(self, 'mousemoved', x, y)
+	
 	if self:isHovering(x, y) then
 		self:setState('hover')
 
@@ -168,9 +181,12 @@ function GUIElement:mousemoved (x, y)
 			self.onExit(self)
 		end
 	end
+
 end
 
 function GUIElement:mousepressed (x, y, button)
+	self:doRecursive(self, 'mousepressed', x, y, button)
+
 	if self.currentState == 'hover' then
 		self:setState('clicked')
 
@@ -181,6 +197,8 @@ function GUIElement:mousepressed (x, y, button)
 end
 
 function GUIElement:mousereleased (x, y, button)
+	self:doRecursive(self, 'mousereleased', x, y, button)
+
 	if self.currentState == 'clicked' then
 
 		if self:isHovering(x, y) then

@@ -6,6 +6,7 @@ local Panel = require(cwd .. '.components.panel')
 
 local ScrollPanel = class('ScrollPanel', Panel)
 
+
 function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	Panel.initialize(self, position, size, backgroundColor)
 
