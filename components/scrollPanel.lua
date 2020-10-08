@@ -36,6 +36,22 @@ function ScrollPanel:setSize(width, height)
 	end
 end
 
+function ScrollPanel:saveChildPositions ()
+	for _, v in ipairs(self.children) do
+		if v.beforeScrollBottomPos == nil and v.beforeScrollPos == nil then
+			v.beforeScrollPos = {
+				x = v.realPosition.x,
+				y = v.realPosition.y
+			}
+
+			v.beforeScrollBottomPos = {
+				x = v.realBottomRight.x,
+				y = v.realBottomRight.y
+			}
+		end
+	end
+end
+
 function ScrollPanel:updateCanvas ()
 	love.graphics.setCanvas(self.canvas)
 	love.graphics.clear()
@@ -65,32 +81,23 @@ function ScrollPanel:mousemoved (x, y)
 	end
 end
 
+
 function ScrollPanel:wheelmoved (x, y)
 	Panel.wheelmoved(self, x, y)
 	if self.currentState == 'hover' then
 		local scrollFactor = 5
-		
+
 		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
 		self.scroll.x = utils.clamp(self.scroll.x + x * scrollFactor, 0, clipHeight)
 		self.scroll.y = utils.clamp(self.scroll.y - y * scrollFactor, 0, clipHeight)
 
+		-- todo: move this to init or something
+		self:saveChildPositions()
+
 		for _, v in ipairs(self.children) do
-			if v.beforeScrollPos == nil then
-				v.beforeScrollPos = {
-					x = v.realPosition.x,
-					y = v.realPosition.y
-				}
-
-				v.beforeScrollBottomPos = {
-					x = v.realBottomRight.x,
-					y = v.realBottomRight.y
-				}
-			end
-
 			v.realPosition.x = v.beforeScrollPos.x + self.scroll.x
 			v.realPosition.y = v.beforeScrollPos.y - self.scroll.y
-
 
 			v.realBottomRight.x = v.beforeScrollBottomPos.x + self.scroll.x
 			v.realBottomRight.y = v.beforeScrollBottomPos.y - self.scroll.y

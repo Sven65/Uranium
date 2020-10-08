@@ -26,6 +26,10 @@ function DropdownButton:createOptions ()
 			self.optionListData.selectedOption = i
 
 			self:setText(v)
+
+			if type (self.onSelect) == 'function' then
+				self.onSelect(self, v)
+			end
 		end
 
 		function optionElement.onEnter (this)
@@ -45,8 +49,6 @@ function DropdownButton:createOptions ()
 		self.optionListData.height = self.optionListData.height + elHeight
 		self.optionPanel:addChild(optionElement)
 	end
-
-	--self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
 function DropdownButton:updateOptionPositions ()
