@@ -83,11 +83,13 @@ function GUIElement:setScale (wScale, hScale, scaleChildren, i)
 	self:setSize(scaledWidth, scaledHeight)
 
 	self:setPosition(scaledXPos, scaledYPos)
-	print(string.rep("\t", i).."Scale", self)
+
+	print(string.rep('\t', i).."child "..i, self)
+
+	i = i+1
 
 	if scaleChildren then
-		i = i+1
-		self:doRecursive(self, 'setScale', wScale, hScale, scaleChildren, i)
+		self:doRecursive(self.children, 'setScale', wScale, hScale, scaleChildren, i)
 	end
 
 	self:calculateRealPositions()

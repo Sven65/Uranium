@@ -40,6 +40,15 @@ function ScrollPanel:setSize(width, height)
 		self.canvas:release()
 		self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
 		local x, y, w, h = self.clipQuad:getViewport()
+
+		local canvasWidth, canvasHeight = self.canvas:getDimensions()
+
+		w = math.min(canvasWidth, w)
+		h = math.min(canvasHeight, h)
+
+		-- print("canvas", self.canvas:getDimensions())
+		-- print("quad", x, y, w, h)
+
 		self.clipQuad:setViewport(x, y, w, h, self.canvas:getDimensions())
 	end
 end
@@ -60,12 +69,12 @@ function ScrollPanel:saveChildPositions (force)
 	end
 end
 
+
 function ScrollPanel:updateCanvas ()
 	love.graphics.setCanvas(self.canvas)
 	love.graphics.clear()
 
 	for _, v in ipairs(self.children) do
-		print("pos", v.position.x, v.position.y)
 		v:draw()
 	end
 
@@ -74,7 +83,7 @@ end
 
 function ScrollPanel:draw ()
 	love.graphics.setColor(self.backgroundColor:to01())
-	
+
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height )
 	love.graphics.setColor(1, 1, 1, 1)
 

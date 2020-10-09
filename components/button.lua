@@ -52,15 +52,13 @@ end
 function Button:calculateTextCenter ()
 	local width, height = self.text:getDimensions()
 
-	self.textPosition = {
-		x = (self.position.x + (self.size.width / 2) - (width / 2) + self.textOffset.x),
-		y = (self.position.y + (self.size.height / 2) - (height / 2) + self.textOffset.y)
-	}
+	self.textPosition.x = (self.position.x + (self.size.width / 2) - (width / 2) + self.textOffset.x)
+	self.textPosition.y = (self.position.y + (self.size.height / 2) - (height / 2) + self.textOffset.y)
+
 end
 
 function Button:setPosition (x, y)
 	GUIElement.setPosition(self, x, y)
-
 	self:calculateTextCenter()
 end
 
@@ -74,6 +72,10 @@ function Button:setText (text)
 	self:calculateTextCenter()
 end
 
+function Button:afterScaled ()
+	self:calculateTextCenter()
+end
+
 function Button:draw ()
 	GUIElement.draw(self)
 	if self.text ~= nil then
@@ -83,6 +85,8 @@ function Button:draw ()
 
 			love.graphics.setColor(1, 1, 1, 1)
 		end
+
+		--print("self.textPosition", self.textPosition.x, self.textPosition.y)
 
 		love.graphics.draw(self.text, self.textPosition.x, self.textPosition.y)
 	end

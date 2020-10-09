@@ -11,6 +11,8 @@ local defaultColors = require(cwd .. 'data.defaultColors')
 
 local DropdownButton = class('DropdownButton', FlatButton)
 
+local inspect = require 'lib.inspect'
+
 function DropdownButton:createOptions ()
 	local font = self.font or love.graphics.getFont()
 
@@ -43,7 +45,7 @@ function DropdownButton:createOptions ()
 
 			this:setBackgroundColor(nil)
 		end
-		
+
 		local elHeight = optionElement:getHeight()
 
 		self.optionListData.height = self.optionListData.height + elHeight
@@ -54,15 +56,18 @@ end
 function DropdownButton:updateOptionPositions ()
 	for i, v in ipairs(self.optionPanel.children) do
 		local yPos = (v:getHeight() * (i - 1))
-		
-		print(v:getHeight().."* ("..i.."- 1) =", yPos)
-		
+
 		v:setPosition(0, yPos)
+		v:setUnscaledPosition(0, yPos)
 	end
 
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
+
+function DropdownButton:setScale (wScale, hScale)
+	FlatButton.setScale(self, wScale, hScale, false)
+end
 
 function DropdownButton:initialize (text, colors, position, size, font, options, listHeight)
 	FlatButton.initialize(self, text, colors, position, size, font)
@@ -109,18 +114,17 @@ function DropdownButton:onLeftClick ()
 end
 
 function DropdownButton:afterScaled ()
-	self.optionPanel:setSize(self.size.width, self.optionListData.height)
-	self.optionPanel:setClipSize(self.size.width, self.listHeight * self.scale.h)
+	-- print("DD after scale")
+	-- print("size 1 ",self.optionPanel.size.height)
 
-	self:updateOptionPositions()
+	self.optionPanel:setSize(self.size.width, self.optionPanel.size.height * self.scale.h)
 
-	self.optionPanel:saveChildPositions(true)
-end
+	-- print("size 2 ",self.optionPanel.size.height)
+	-- print("scale", self.scale.h)
 
-function DropdownButton:setScale (wScale, hScale, scaleChildren)
-	FlatButton.setScale(self, wScale, hScale, false)
+	self.optionPanel:setClipSize(self.size.width, self.listHeight)
 
-	self:afterScaled()
+	-- self.optionPanel:saveChildPositions(true)
 end
 
 function DropdownButton:draw ()
