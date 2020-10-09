@@ -6,7 +6,17 @@ local GUIElement = class('GUIElement')
 
 function GUIElement:initialize (position, size, align, padding)
 	self.size = size
+	self.unscaledSize = {
+		width = size.width,
+		height = size.height,
+	}
+
 	self.position = position
+
+	self.unscaledPosition = {
+		x = position.x,
+		y = position.y
+	}
 
 	self.align = align or 'center'
 
@@ -30,13 +40,16 @@ function GUIElement:initialize (position, size, align, padding)
 		x = position.x + size.width,
 		y = position.y + size.height,
 	}
+
+	self.scale = {
+		w = 1,
+		h = 1,
+	}
 end
 
 function GUIElement:calculateBoxes ()
-	self.bottomRight = {
-		x = self.position.x + self.size.width,
-		y = self.position.y + self.size.height,
-	}
+	self.bottomRight.x = self.position.x + self.size.width
+	self.bottomRight.y = self.position.y + self.size.height
 end
 
 function GUIElement:setState (state)
@@ -45,19 +58,41 @@ function GUIElement:setState (state)
 end
 
 function GUIElement:setSize (width, height)
-	self.size = {
-		width = width or self.size.width,
-		height = height or self.size.height,
-	}
+	self.size.width = width or self.size.width
+	self.size.height = height or self.size.height
+end
+
+-- sets the scale of the gui element and does math for it
+function GUIElement:setScale (wScale, hScale)
+	self.scale.w = wScale or self.scale.w
+	self.scale.h = hScale or self.scale.h
+
+	local scaledWidth = self.unscaledSize.width * wScale
+	local scaledHeight = self.unscaledSize.height * hScale
+
+	local scaledXPos = self.unscaledPosition.x * wScale
+	local scaledYPos = self.unscaledPosition.y * hScale
+
+	print ("Unscaled pos", self.unscaledPosition.x, self.unscaledPosition.y)
+
+	print ("Scaled pos", scaledXPos, scaledYPos)
+
+
+	self:setSize(scaledWidth, scaledHeight)
+
+	self:setPosition(scaledXPos, scaledYPos)
+
+	
+	print("new pos", self.position.x, self.position.y)
+
+	self:doRecursive(self, 'setScale', wScale, hScale)
 end
 
 function GUIElement:setPadding (left, right, top, bottom)
-	self.padding = {
-		left = left or self.padding.left,
-		right = right or self.padding.right,
-		top = top or self.padding.top,
-		bottom = bottom or self.padding.bottom,
-	}
+	self.padding.left = self.padding.left or self.padding.left
+	self.padding.right = right or self.padding.right
+	self.padding.top = top or self.padding.top
+	self.padding.bottom = bottom or self.padding.bottom
 end
 
 function GUIElement:setAlign (align)
@@ -77,10 +112,17 @@ function GUIElement:getHeight ()
 end
 
 function GUIElement:setPosition (x, y)
-	self.position = {
-		x = x or self.position.x,
-		y = y or self.position.y,
-	}
+	self.position.x = x or self.position.x
+	self.position.y = y or self.position.y
+
+	print("=================================")
+
+	print("unsclaed", self.unscaledPosition.x, self.unscaledPosition.y)
+
+	self.unscaledPosition.x = self.unscaledPosition.x or x
+	self.unscaledPosition.y = self.unscaledPosition.y or y
+
+	print("unsclaed 2", self.unscaledPosition.x, self.unscaledPosition.y)
 
 	self:calculateBoxes()
 end

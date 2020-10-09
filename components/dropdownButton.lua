@@ -53,6 +53,7 @@ end
 
 function DropdownButton:updateOptionPositions ()
 	for i, v in ipairs(self.optionPanel.children) do
+		print(v.scale.w)
 		local yPos = (v:getHeight() * (i - 1))
 
 		v:setPosition(self.position.x, yPos)
@@ -60,7 +61,6 @@ function DropdownButton:updateOptionPositions ()
 
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
-
 
 function DropdownButton:initialize (images, text, position, size, font, options, listHeight)
 	ImageButton.initialize(self, images, text, position, size, font)
