@@ -4,6 +4,7 @@ local class = require(cwd .. '.lib.middleclass')
 
 local GUIElement = class('GUIElement')
 
+-- Creates a new GUIElement
 function GUIElement:initialize (position, size, align, padding)
 	self.size = size
 	self.unscaledSize = {
@@ -73,17 +74,9 @@ function GUIElement:setScale (wScale, hScale)
 	local scaledXPos = self.unscaledPosition.x * wScale
 	local scaledYPos = self.unscaledPosition.y * hScale
 
-	print ("Unscaled pos", self.unscaledPosition.x, self.unscaledPosition.y)
-
-	print ("Scaled pos", scaledXPos, scaledYPos)
-
-
 	self:setSize(scaledWidth, scaledHeight)
 
 	self:setPosition(scaledXPos, scaledYPos)
-
-	
-	print("new pos", self.position.x, self.position.y)
 
 	self:doRecursive(self, 'setScale', wScale, hScale)
 end
@@ -115,14 +108,8 @@ function GUIElement:setPosition (x, y)
 	self.position.x = x or self.position.x
 	self.position.y = y or self.position.y
 
-	print("=================================")
-
-	print("unsclaed", self.unscaledPosition.x, self.unscaledPosition.y)
-
 	self.unscaledPosition.x = self.unscaledPosition.x or x
 	self.unscaledPosition.y = self.unscaledPosition.y or y
-
-	print("unsclaed 2", self.unscaledPosition.x, self.unscaledPosition.y)
 
 	self:calculateBoxes()
 end
