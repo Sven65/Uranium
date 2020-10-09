@@ -1,6 +1,11 @@
 local cwd = string.sub(..., 1, string.len(...) - string.len('.components.flatButton'))
 
+local min, mag, anisotropy = love.graphics.getDefaultFilter( )
+
+love.graphics.setDefaultFilter('nearest', 'nearest')
 local buttonImage = love.graphics.newImage(cwd:gsub('%.', '/') .. '/assets/FlatButton.png')
+love.graphics.setDefaultFilter(min, mag, anisotropy)
+
 
 local class = require(cwd .. '.lib.middleclass')
 
@@ -30,12 +35,23 @@ function FlatButton:initialize (text, colors, position, size, font)
 	Button.initialize(self, text, position, size, font)
 end
 
+function FlatButton:getDrawScale ()
+	local width, height = buttonImage:getDimensions()
+
+	return self.size.width / width, self.size.height / height
+end
+
 -- Draws the Button
 function FlatButton:draw ()
 	Button.draw(self)
 
 	love.graphics.setColor(self.colors[self.currentState]:to01())
-	love.graphics.draw(buttonImage, self.position.x, self.position.y)
+
+	local drawScaleX, drawScaleY = self:getDrawScale()
+
+
+	love.graphics.draw(buttonImage, self.position.x, self.position.y, 0, drawScaleX, drawScaleY)
+
 	love.graphics.setColor(1,1,1,1)
 
 	if self.text ~= nil then

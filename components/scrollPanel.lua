@@ -24,11 +24,19 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	self.clipQuad = love.graphics.newQuad(0, 0, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
 end
 
+function ScrollPanel:setClipSize (width, height)
+	local x, y, _, _ = self.clipQuad:getViewport()
+
+	self.clipRect.width = width or self.clipRect.width
+	self.clipRect.height = height or self.clipRect.height
+
+	self.clipQuad:setViewport(x, y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
+end
+
 function ScrollPanel:setSize(width, height)
 	Panel.setSize(self, width, height)
 
 	if self.clipQuad ~= nil and self.canvas ~= nil then
-
 		self.canvas:release()
 		self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
 		local x, y, w, h = self.clipQuad:getViewport()
@@ -36,9 +44,9 @@ function ScrollPanel:setSize(width, height)
 	end
 end
 
-function ScrollPanel:saveChildPositions ()
+function ScrollPanel:saveChildPositions (force)
 	for _, v in ipairs(self.children) do
-		if v.beforeScrollBottomPos == nil and v.beforeScrollPos == nil then
+		if (v.beforeScrollBottomPos == nil and v.beforeScrollPos == nil) or force then
 			v.beforeScrollPos = {
 				x = v.realPosition.x,
 				y = v.realPosition.y
@@ -57,6 +65,7 @@ function ScrollPanel:updateCanvas ()
 	love.graphics.clear()
 
 	for _, v in ipairs(self.children) do
+		print("pos", v.position.x, v.position.y)
 		v:draw()
 	end
 

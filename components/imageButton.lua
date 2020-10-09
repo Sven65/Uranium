@@ -20,13 +20,8 @@ end
 
 
 function ImageButton:draw ()
-	Button.draw(self)
-
 	love.graphics.draw(self.images[self.currentState], self.position.x, self.position.y)
-
-	if self.text ~= nil then
-		love.graphics.draw(self.text, self.textPosition.x, self.textPosition.y)
-	end
+	Button.draw(self)
 end
 
 

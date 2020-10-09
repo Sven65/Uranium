@@ -29,39 +29,10 @@ function Row:calculateSize ()
 	self:setSize(width, maxHeight)
 end
 
-function Row:calculatePositions ()
-	if self.align == 'center' then
-		local startX = self.position.x / 2 - self.size.width / 2 - (self.padding * (#self.children - 1))
-
-		for i, v in ipairs(self.children) do
-			local eWidth = v:getWidth()
-
-			local xPos = startX + eWidth * i + self.padding * i
-
-			v:setPosition(xPos, v.position.y)
-		end
-	elseif self.align == 'default' then
-		-- Let children handle align
-
-		for _, v in ipairs(self.children) do
-			local eWidth = v:getWidth()
-			local xPos = 0
-
-			if v.align == 'right' then
-				xPos = self.position.x / 2 + (eWidth) - v.padding.right
-			elseif v.align == 'left' then
-				xPos = self.position.x / 2 + v.padding.left
-			end
-
-			v:setPosition(xPos, v.position.y)
-		end
-	end
-end
 
 function Row:addChild (child)
 	table.insert(self.children, child)
 	self:calculateSize()
-	self:calculatePositions()
 end
 
 function Row:draw ()

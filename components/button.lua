@@ -53,8 +53,8 @@ function Button:calculateTextCenter ()
 	local width, height = self.text:getDimensions()
 
 	self.textPosition = {
-		x = self.position.x + (self.size.width / 2) - (width / 2) + self.textOffset.x,
-		y = self.position.y + (self.size.height / 2) - (height / 2) + self.textOffset.y,
+		x = (self.position.x + (self.size.width / 2) - (width / 2) + self.textOffset.x),
+		y = (self.position.y + (self.size.height / 2) - (height / 2) + self.textOffset.y)
 	}
 end
 

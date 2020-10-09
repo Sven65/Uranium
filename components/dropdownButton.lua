@@ -2,14 +2,14 @@ local cwd = string.sub(..., 1, string.len(...) - string.len('components.dropdown
 
 local class = require(cwd .. '.lib.middleclass')
 
-local ImageButton = require(cwd .. '.components.imageButton')
+local FlatButton = require(cwd .. '.components.flatButton')
 
 local Button = require(cwd .. '.components.button')
 local ScrollPanel = require(cwd .. '.components.scrollPanel')
 
 local defaultColors = require(cwd .. 'data.defaultColors')
 
-local DropdownButton = class('DropdownButton', ImageButton)
+local DropdownButton = class('DropdownButton', FlatButton)
 
 function DropdownButton:createOptions ()
 	local font = self.font or love.graphics.getFont()
@@ -53,17 +53,20 @@ end
 
 function DropdownButton:updateOptionPositions ()
 	for i, v in ipairs(self.optionPanel.children) do
-		print(v.scale.w)
 		local yPos = (v:getHeight() * (i - 1))
-
-		v:setPosition(self.position.x, yPos)
+		
+		print(v:getHeight().."* ("..i.."- 1) =", yPos)
+		
+		v:setPosition(0, yPos)
 	end
 
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
-function DropdownButton:initialize (images, text, position, size, font, options, listHeight)
-	ImageButton.initialize(self, images, text, position, size, font)
+
+function DropdownButton:initialize (text, colors, position, size, font, options, listHeight)
+	FlatButton.initialize(self, text, colors, position, size, font)
+
 	self.options = options
 
 	self.isOpened = false
@@ -86,7 +89,7 @@ function DropdownButton:initialize (images, text, position, size, font, options,
 	self:updateOptionPositions()
 
 	self.optionPanel:setSize(self.size.width, self.optionListData.height)
-	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
+	self.optionPanel:setPosition(0, self.bottomRight.y)
 
 	self:addChild(self.optionPanel)
 end
@@ -105,8 +108,23 @@ function DropdownButton:onLeftClick ()
 	self.isOpened = not self.isOpened
 end
 
+function DropdownButton:afterScaled ()
+	self.optionPanel:setSize(self.size.width, self.optionListData.height)
+	self.optionPanel:setClipSize(self.size.width, self.listHeight * self.scale.h)
+
+	self:updateOptionPositions()
+
+	self.optionPanel:saveChildPositions(true)
+end
+
+function DropdownButton:setScale (wScale, hScale, scaleChildren)
+	FlatButton.setScale(self, wScale, hScale, false)
+
+	self:afterScaled()
+end
+
 function DropdownButton:draw ()
-	ImageButton.draw(self)
+	FlatButton.draw(self)
 
 	if self.isOpened then
 		self:drawList()

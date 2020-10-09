@@ -23,6 +23,7 @@ function Panel:draw ()
 	love.graphics.push()
 	love.graphics.translate(self.position.x, self.position.y)
 
+
 	for _, v in ipairs(self.children) do
 		v:draw()
 	end

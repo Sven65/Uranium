@@ -2,7 +2,10 @@ local cwd = string.sub(..., 1, string.len(...) - string.len('components.guiEleme
 
 local class = require(cwd .. '.lib.middleclass')
 
+local Utils = require(cwd..'.lib.utils')
+
 local GUIElement = class('GUIElement')
+
 
 -- Creates a new GUIElement
 function GUIElement:initialize (position, size, align, padding)
@@ -64,7 +67,10 @@ function GUIElement:setSize (width, height)
 end
 
 -- sets the scale of the gui element and does math for it
-function GUIElement:setScale (wScale, hScale)
+function GUIElement:setScale (wScale, hScale, scaleChildren, i)
+	i = i or 0
+	if scaleChildren == nil then scaleChildren = true end
+
 	self.scale.w = wScale or self.scale.w
 	self.scale.h = hScale or self.scale.h
 
@@ -77,12 +83,23 @@ function GUIElement:setScale (wScale, hScale)
 	self:setSize(scaledWidth, scaledHeight)
 
 	self:setPosition(scaledXPos, scaledYPos)
+	print(string.rep("\t", i).."Scale", self)
 
-	self:doRecursive(self, 'setScale', wScale, hScale)
+	if scaleChildren then
+		i = i+1
+		self:doRecursive(self, 'setScale', wScale, hScale, scaleChildren, i)
+	end
+
+	self:calculateRealPositions()
+
+	if type(self.afterScaled) == 'function' then
+		self:afterScaled()
+	end
 end
 
+
 function GUIElement:setPadding (left, right, top, bottom)
-	self.padding.left = self.padding.left or self.padding.left
+	self.padding.left = left or self.padding.left
 	self.padding.right = right or self.padding.right
 	self.padding.top = top or self.padding.top
 	self.padding.bottom = bottom or self.padding.bottom
@@ -112,6 +129,11 @@ function GUIElement:setPosition (x, y)
 	self.unscaledPosition.y = self.unscaledPosition.y or y
 
 	self:calculateBoxes()
+end
+
+function GUIElement:setUnscaledPosition (x, y)
+	self.unscaledPosition.x = x or self.unscaledPosition.x
+	self.unscaledPosition.y = y or self.unscaledPosition.y
 end
 
 function GUIElement:update (dt) end
@@ -150,7 +172,17 @@ function GUIElement:draw()
 			self.realBottomRight.x - self.realPosition.x,
 			self.realBottomRight.y - self.realPosition.y
 		)
-		
+
+		love.graphics.setColor(0, 0, 1, 1)
+
+		love.graphics.rectangle(
+			'line',
+			self.unscaledPosition.x,
+			self.unscaledPosition.y,
+			self.bottomRight.x - self.unscaledPosition.x,
+			self.bottomRight.y - self.unscaledPosition.y
+		)
+
 		love.graphics.setColor(1,1,1,1)
 	end
 end
@@ -158,7 +190,6 @@ end
 function GUIElement:isHovering (x, y)
 	return Utils.isInRect(self.realPosition.x, self.realPosition.y, self.realBottomRight.x, self.realBottomRight.y, x, y)
 end
-
 
 function GUIElement:addChild (child)
 	child.isChild = true
@@ -170,6 +201,7 @@ function GUIElement:calculateRealPositions ()
 	love.graphics.push()
 
 	love.graphics.translate(self.position.x, self.position.y)
+	--love.graphics.scale(self.scale.w, self.scale.h)
 
 
 	local screenX, screenY = love.graphics.transformPoint(0, 0)
