@@ -18,12 +18,14 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 		y = 0,
 	}
 
-	self:setSize(nil, clipRect.height)
 	self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
+	self:setSize(nil, clipRect.height)
 
 	self.clipRect = clipRect
 
 	self.clipQuad = love.graphics.newQuad(0, 0, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
+
+	self.forceChildPos = true
 end
 
 function ScrollPanel:setClipSize (width, height)
@@ -57,6 +59,7 @@ end
 function ScrollPanel:saveChildPositions (force)
 	for _, v in ipairs(self.children) do
 		if (v.beforeScrollBottomPos == nil and v.beforeScrollPos == nil) or force then
+
 			v.beforeScrollPos = {
 				x = v.realPosition.x,
 				y = v.realPosition.y
@@ -68,6 +71,8 @@ function ScrollPanel:saveChildPositions (force)
 			}
 		end
 	end
+
+	if self.forceChildPos then self.forceChildPos = false end
 end
 
 
@@ -93,34 +98,24 @@ function ScrollPanel:draw ()
 end
 
 function ScrollPanel:setScale (wScale, hScale)
-	print("scale scroll")
-
 	self.scale.w = wScale
 	self.scale.h = hScale
 
-	--self:setSize(self.size.width * wScale, self.size.height * hScale)
 
-	--self:saveChildPositions(true)
-
-	
-	for _, v in ipairs(self.children) do
-		print("V REAL", inspect(v.realPosition))
-		print("V BEFORE", inspect(v.beforeScrollPos))
-		v.realPosition.x = v.realPosition.x - self.scroll.x
-		v.realPosition.y = v.realPosition.y - self.scroll.y
-
-		v.realBottomRight.x = v.realBottomRight.x - self.scroll.x
-		v.realBottomRight.y = v.realBottomRight.y - self.scroll.y
-	end
-	
 	self.scroll.x = 0
 	self.scroll.y = 0
 
+	for _, v in ipairs(self.children) do
+		v:calculateBoxes()
+	end
+
 	local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
-	self.clipQuad:setViewport(self.position.x + self.scroll.x, self.scroll.y, clipWidth, clipHeight)
+	self.clipQuad:setViewport(self.position.x + self.scroll.x, 0, clipWidth, clipHeight)
 
 	self:updateCanvas()
+
+	self.forceChildPos = true
 end
 
 -- Events
@@ -143,8 +138,10 @@ function ScrollPanel:wheelmoved (x, y)
 		self.scroll.x = utils.clamp(self.scroll.x + x * scrollFactor, 0, clipHeight)
 		self.scroll.y = utils.clamp(self.scroll.y - y * scrollFactor, 0, clipHeight)
 
+		print("scroll", self.scroll.x, self.scroll.y)
+
 		-- todo: move this to init or something
-		self:saveChildPositions()
+		self:saveChildPositions(self.forceChildPos)
 
 		for _, v in ipairs(self.children) do
 			v.realPosition.x = v.beforeScrollPos.x + self.scroll.x

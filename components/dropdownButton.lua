@@ -20,6 +20,7 @@ function DropdownButton:createOptions ()
 		local optionElement = Button(v, {x = 0, y = 0}, nil, font)
 
 		optionElement.align = 'left'
+		--optionElement.scale = false
 
 		function optionElement.onLeftClick (this)
 			if not self.isOpened then return end
@@ -114,22 +115,10 @@ function DropdownButton:onLeftClick ()
 end
 
 function DropdownButton:afterScaled ()
-	-- print("DD after scale")
-	print("size 1 ",self.optionPanel.size.height)
-
-	--self.optionPanel:setSize(self.size.width, self.optionPanel.size.height * self.scale.h)
-
-	self.optionPanel:setPosition(0, self.bottomRight.y)
-
-	-- print("size 2 ",self.optionPanel.size.height)
-	-- print("scale", self.scale.h)
+	self.optionPanel:setSize(self.size.width, self.optionPanel.size.height)
 
 	self.optionPanel:setClipSize(self.size.width, self.listHeight * self.scale.h)
-
-	-- self.optionPanel:saveChildPositions(true)
-
-	--self.optionPanel:calculateRealPositions()
-	--self.optionPanel:saveChildPositions(true)
+	self.optionPanel:setPosition(nil, self.bottomRight.y)
 end
 
 function DropdownButton:draw ()

@@ -207,7 +207,7 @@ function GUIElement:calculateRealPositions ()
 
 
 	local screenX, screenY = love.graphics.transformPoint(0, 0)
-
+	
 	self.realPosition = {
 		x = screenX,
 		y = screenY,
