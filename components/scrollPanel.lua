@@ -8,6 +8,8 @@ local ScrollPanel = class('ScrollPanel', Panel)
 
 local utils = require(cwd .. 'lib.utils')
 
+local inspect = require 'lib.inspect'
+
 function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	Panel.initialize(self, position, size, backgroundColor)
 
@@ -25,10 +27,10 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 end
 
 function ScrollPanel:setClipSize (width, height)
-	local x, y, _, _ = self.clipQuad:getViewport()
+	local x, y, w, h = self.clipQuad:getViewport()
 
-	self.clipRect.width = width or self.clipRect.width
-	self.clipRect.height = height or self.clipRect.height
+	self.clipRect.width = width or w
+	self.clipRect.height = height or h
 
 	self.clipQuad:setViewport(x, y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
 end
@@ -36,8 +38,14 @@ end
 function ScrollPanel:setSize(width, height)
 	Panel.setSize(self, width, height)
 
+
 	if self.clipQuad ~= nil and self.canvas ~= nil then
+		print("SET SIZE")
+
 		self.canvas:release()
+
+		print("size", inspect(self.size))
+
 		self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
 		local x, y, w, h = self.clipQuad:getViewport()
 
@@ -88,6 +96,12 @@ function ScrollPanel:draw ()
 	love.graphics.setColor(1, 1, 1, 1)
 
 	love.graphics.draw(self.canvas, self.clipQuad, self.position.x, self.position.y)
+end
+
+function ScrollPanel:setScale (wScale, hScale)
+	print("scale scroll")
+
+	--self:setSize(self.size.width * wScale, self.size.height * hScale)
 end
 
 -- Events
