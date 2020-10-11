@@ -8,6 +8,12 @@ local ScrollPanel = class('ScrollPanel', Panel)
 
 local utils = require(cwd .. 'lib.utils')
 
+-- Creates a new Scroll Panel
+-- @tparam Position position The position of the scroll panel
+-- @tparam Size size The size of the Scroll Panel
+-- @tparam Color backgroundColor The background color for the scrollrect
+-- @tparam Size clipRect The rect to use for limiting the drawing size
+-- @treturn ScrollPanel
 function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	Panel.initialize(self, position, size, backgroundColor)
 
@@ -28,6 +34,9 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	self.maxYScroll = nil
 end
 
+-- Sets the clip size
+-- @tparam number width The width of the clip
+-- @tparam number height The height of the clip
 function ScrollPanel:setClipSize (width, height)
 	local x, y, w, h = self.clipQuad:getViewport()
 
@@ -35,11 +44,11 @@ function ScrollPanel:setClipSize (width, height)
 	self.clipRect.height = height or h
 
 	self.clipQuad:setViewport(x, y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
-
-
-	--self.maxYScroll = self:calculateMaxY(self.clipRect.height)
 end
 
+-- Sets the size of the scroll panel
+-- @tparam number width The width of the panel
+-- @tparam number height The height of the panel
 function ScrollPanel:setSize(width, height)
 	Panel.setSize(self, width, height)
 
@@ -57,14 +66,14 @@ function ScrollPanel:setSize(width, height)
 
 		self.clipQuad:setViewport(x, y, w, h, canvasWidth, canvasHeight)
 
-		--self.maxYScroll = self:calculateMaxY(h)
-
 		if self.maxYScroll == nil then
 			self.maxYScroll = self:calculateMaxY(h)
 		end
 	end
 end
 
+-- Saves the child positions for calculating scroll positions
+-- @tparam ?boolean force If the save should overwrite regardless
 function ScrollPanel:saveChildPositions (force)
 	for _, v in ipairs(self.children) do
 		if (v.beforeScrollBottomPos == nil and v.beforeScrollPos == nil) or force then
@@ -84,7 +93,7 @@ function ScrollPanel:saveChildPositions (force)
 	if self.forceChildPos then self.forceChildPos = false end
 end
 
-
+-- Updates the scroll panels canvas
 function ScrollPanel:updateCanvas ()
 	love.graphics.setCanvas(self.canvas)
 	love.graphics.clear()
@@ -96,6 +105,7 @@ function ScrollPanel:updateCanvas ()
 	love.graphics.setCanvas()
 end
 
+-- Draws the scroll panel
 function ScrollPanel:draw ()
 	love.graphics.setColor(self.backgroundColor:to01())
 
@@ -106,6 +116,9 @@ function ScrollPanel:draw ()
 	love.graphics.draw(self.canvas, self.clipQuad, self.position.x, self.position.y)
 end
 
+-- Sets the scale of the scroll panel
+-- @tparam number wScale The wScale
+-- @tparam number hScale The hScale
 function ScrollPanel:setScale (wScale, hScale)
 	self.scale.w = wScale
 	self.scale.h = hScale
@@ -133,6 +146,9 @@ function ScrollPanel:setScale (wScale, hScale)
 	end
 end
 
+-- Calculates the maximum scroll height for the panel
+-- @tparam number clipHeight The cliprect height
+-- @treturn number The maximum scroll
 function ScrollPanel:calculateMaxY (clipHeight)
 	local canvasHeight = self.canvas:getHeight()
 

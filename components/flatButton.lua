@@ -20,7 +20,7 @@ local FlatButton = class('FlatButton', Button)
 -- @field Color colors.hover The color to use when the button is hovered
 -- @field Color colors.click The color to use when the button is clicked
 -- @tparam Position position The position of the button
--- @tparan ?Size size The size of the button
+-- @tparam ?Size size The size of the button
 -- @tparam Font The LÖVE font to use for the button
 -- @treturn FlatButton
 function FlatButton:initialize (text, colors, position, size, font)
@@ -35,6 +35,9 @@ function FlatButton:initialize (text, colors, position, size, font)
 	Button.initialize(self, text, position, size, font)
 end
 
+-- Gets the scale to use when drawing the button
+-- @treturn number The width scale
+-- @treturn number The height scale
 function FlatButton:getDrawScale ()
 	local width, height = buttonImage:getDimensions()
 

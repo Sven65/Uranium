@@ -6,12 +6,18 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Panel = class('Panel', GUIElement)
 
+-- Creates a new Panel
+-- @tparam Position position The position of the label
+-- @tparam Size size The size of the panel
+-- @tparam Color backgroundColor The background color of the panel
+-- @treturn Label
 function Panel:initialize (position, size, backgroundColor)
 	GUIElement.initialize(self, position, size)
 
 	self.backgroundColor = backgroundColor
 end
 
+-- Draws the panel
 function Panel:draw ()
 	GUIElement.draw(self)
 
@@ -27,7 +33,7 @@ function Panel:draw ()
 	for _, v in ipairs(self.children) do
 		v:draw()
 	end
-	
+
 	love.graphics.pop()
 end
 

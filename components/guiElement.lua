@@ -67,7 +67,7 @@ function GUIElement:setSize (width, height)
 end
 
 -- sets the scale of the gui element and does math for it
-function GUIElement:setScale (wScale, hScale, scaleChildren, )
+function GUIElement:setScale (wScale, hScale, scaleChildren)
 	if scaleChildren == nil then scaleChildren = true end
 
 	self.scale.w = wScale or self.scale.w

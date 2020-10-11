@@ -6,14 +6,17 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Row = class('Row', GUIElement)
 
-function Row:initialize (position, padding)
+-- Creates a new Row
+-- @tparam Position position The position of the row
+-- @treturn Row
+function Row:initialize (position)
 	GUIElement.initialize(self, position, { width = 0, height = 0})
 
 	self.children = {}
 	self.position = position
-	self.padding = padding or 0
 end
 
+-- Calculates the size of the row
 function Row:calculateSize ()
 	local width = 0
 	local maxHeight = 0
@@ -29,12 +32,14 @@ function Row:calculateSize ()
 	self:setSize(width, maxHeight)
 end
 
-
+-- Adds a child to the row
+-- @tparam GUIElement child The child to add to the row
 function Row:addChild (child)
 	table.insert(self.children, child)
 	self:calculateSize()
 end
 
+-- Draws the row
 function Row:draw ()
 	GUIElement.draw(self)
 
@@ -47,12 +52,6 @@ function Row:draw ()
 	end
 
 	love.graphics.pop()
-end
-
-function Row:update (dt)
-	for _, v in ipairs(self.children) do
-		v:update(dt)
-	end
 end
 
 return Row

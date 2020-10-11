@@ -11,8 +11,6 @@ local defaultColors = require(cwd .. 'data.defaultColors')
 
 local DropdownButton = class('DropdownButton', FlatButton)
 
-local inspect = require 'lib.inspect'
-
 function DropdownButton:createOptions ()
 	local font = self.font or love.graphics.getFont()
 
@@ -70,6 +68,18 @@ function DropdownButton:setScale (wScale, hScale)
 	FlatButton.setScale(self, wScale, hScale, false)
 end
 
+-- Creates a new Dropdown button
+-- @tparam string text The button text
+-- @tparam table colors The colors to use for the different button states
+-- @field Color colors.default Default button color
+-- @field Color colors.hover The color to use when the button is hovered
+-- @field Color colors.click The color to use when the button is clicked
+-- @tparam Position position The position of the button
+-- @tparam Size size The size of the button
+-- @tparam Font The LÖVE font to use for the button
+-- @tparam {string, ...} options The options to put in the list
+-- @tparam number listHeight The height of the dropdown to draw
+-- @treturn DropdownButton
 function DropdownButton:initialize (text, colors, position, size, font, options, listHeight)
 	FlatButton.initialize(self, text, colors, position, size, font)
 
@@ -100,6 +110,7 @@ function DropdownButton:initialize (text, colors, position, size, font, options,
 	self:addChild(self.optionPanel)
 end
 
+-- Draws the scroll list for the dropdown
 function DropdownButton:drawList ()
 	love.graphics.push()
 
@@ -110,9 +121,6 @@ function DropdownButton:drawList ()
 	love.graphics.pop()
 end
 
-function DropdownButton:onLeftClick ()
-	self.isOpened = not self.isOpened
-end
 
 function DropdownButton:afterScaled ()
 	self.optionPanel:setSize(self.size.width, nil)
@@ -121,12 +129,19 @@ function DropdownButton:afterScaled ()
 	self.optionPanel:setPosition(nil, self.bottomRight.y)
 end
 
+-- Draws the dropdown button
 function DropdownButton:draw ()
 	FlatButton.draw(self)
 
 	if self.isOpened then
 		self:drawList()
 	end
+end
+
+-- Events
+
+function DropdownButton:onLeftClick ()
+	self.isOpened = not self.isOpened
 end
 
 return DropdownButton
