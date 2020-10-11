@@ -58,7 +58,7 @@ function DropdownButton:updateOptionPositions ()
 		local yPos = (v:getHeight() * (i - 1))
 
 		v:setPosition(0, yPos)
-		--v:setUnscaledPosition(0, yPos)
+		v:setUnscaledPosition(0, yPos)
 	end
 
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
@@ -117,14 +117,19 @@ function DropdownButton:afterScaled ()
 	-- print("DD after scale")
 	print("size 1 ",self.optionPanel.size.height)
 
-	--self.optionPanel:setSize(self.size.width, self.optionPanel.size.height)
+	--self.optionPanel:setSize(self.size.width, self.optionPanel.size.height * self.scale.h)
+
+	self.optionPanel:setPosition(0, self.bottomRight.y)
 
 	-- print("size 2 ",self.optionPanel.size.height)
 	-- print("scale", self.scale.h)
 
-	--self.optionPanel:setClipSize(self.size.width, self.listHeight * self.scale.h)
+	self.optionPanel:setClipSize(self.size.width, self.listHeight * self.scale.h)
 
 	-- self.optionPanel:saveChildPositions(true)
+
+	--self.optionPanel:calculateRealPositions()
+	--self.optionPanel:saveChildPositions(true)
 end
 
 function DropdownButton:draw ()

@@ -40,11 +40,7 @@ function ScrollPanel:setSize(width, height)
 
 
 	if self.clipQuad ~= nil and self.canvas ~= nil then
-		print("SET SIZE")
-
 		self.canvas:release()
-
-		print("size", inspect(self.size))
 
 		self.canvas = love.graphics.newCanvas(self.size.width, self.size.height)
 		local x, y, w, h = self.clipQuad:getViewport()
@@ -53,9 +49,6 @@ function ScrollPanel:setSize(width, height)
 
 		w = math.min(canvasWidth, w)
 		h = math.min(canvasHeight, h)
-
-		-- print("canvas", self.canvas:getDimensions())
-		-- print("quad", x, y, w, h)
 
 		self.clipQuad:setViewport(x, y, w, h, self.canvas:getDimensions())
 	end
@@ -95,13 +88,39 @@ function ScrollPanel:draw ()
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height )
 	love.graphics.setColor(1, 1, 1, 1)
 
+
 	love.graphics.draw(self.canvas, self.clipQuad, self.position.x, self.position.y)
 end
 
 function ScrollPanel:setScale (wScale, hScale)
 	print("scale scroll")
 
+	self.scale.w = wScale
+	self.scale.h = hScale
+
 	--self:setSize(self.size.width * wScale, self.size.height * hScale)
+
+	--self:saveChildPositions(true)
+
+	
+	for _, v in ipairs(self.children) do
+		print("V REAL", inspect(v.realPosition))
+		print("V BEFORE", inspect(v.beforeScrollPos))
+		v.realPosition.x = v.realPosition.x - self.scroll.x
+		v.realPosition.y = v.realPosition.y - self.scroll.y
+
+		v.realBottomRight.x = v.realBottomRight.x - self.scroll.x
+		v.realBottomRight.y = v.realBottomRight.y - self.scroll.y
+	end
+	
+	self.scroll.x = 0
+	self.scroll.y = 0
+
+	local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
+
+	self.clipQuad:setViewport(self.position.x + self.scroll.x, self.scroll.y, clipWidth, clipHeight)
+
+	self:updateCanvas()
 end
 
 -- Events
