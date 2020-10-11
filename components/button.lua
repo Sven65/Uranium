@@ -86,8 +86,6 @@ function Button:draw ()
 			love.graphics.setColor(1, 1, 1, 1)
 		end
 
-		--print("self.textPosition", self.textPosition.x, self.textPosition.y)
-
 		love.graphics.draw(self.text, self.textPosition.x, self.textPosition.y)
 	end
 end

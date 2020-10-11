@@ -8,8 +8,6 @@ local ScrollPanel = class('ScrollPanel', Panel)
 
 local utils = require(cwd .. 'lib.utils')
 
-local inspect = require 'lib.inspect'
-
 function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	Panel.initialize(self, position, size, backgroundColor)
 
@@ -26,6 +24,8 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	self.clipQuad = love.graphics.newQuad(0, 0, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
 
 	self.forceChildPos = true
+
+	self.maxYScroll = nil
 end
 
 function ScrollPanel:setClipSize (width, height)
@@ -35,6 +35,9 @@ function ScrollPanel:setClipSize (width, height)
 	self.clipRect.height = height or h
 
 	self.clipQuad:setViewport(x, y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
+
+
+	--self.maxYScroll = self:calculateMaxY(self.clipRect.height)
 end
 
 function ScrollPanel:setSize(width, height)
@@ -52,7 +55,13 @@ function ScrollPanel:setSize(width, height)
 		w = math.min(canvasWidth, w)
 		h = math.min(canvasHeight, h)
 
-		self.clipQuad:setViewport(x, y, w, h, self.canvas:getDimensions())
+		self.clipQuad:setViewport(x, y, w, h, canvasWidth, canvasHeight)
+
+		--self.maxYScroll = self:calculateMaxY(h)
+
+		if self.maxYScroll == nil then
+			self.maxYScroll = self:calculateMaxY(h)
+		end
 	end
 end
 
@@ -90,7 +99,7 @@ end
 function ScrollPanel:draw ()
 	love.graphics.setColor(self.backgroundColor:to01())
 
-	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height )
+	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height)
 	love.graphics.setColor(1, 1, 1, 1)
 
 
@@ -109,6 +118,8 @@ function ScrollPanel:setScale (wScale, hScale)
 		v:calculateBoxes()
 	end
 
+	self:setSize(nil, self.size.height * hScale)
+
 	local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
 	self.clipQuad:setViewport(self.position.x + self.scroll.x, 0, clipWidth, clipHeight)
@@ -116,6 +127,20 @@ function ScrollPanel:setScale (wScale, hScale)
 	self:updateCanvas()
 
 	self.forceChildPos = true
+
+	if self.maxYScroll == nil then
+		self.maxYScroll = self:calculateMaxY(clipHeight)
+	end
+end
+
+function ScrollPanel:calculateMaxY (clipHeight)
+	local canvasHeight = self.canvas:getHeight()
+
+	if self.scale.h >= 1 then
+		return (canvasHeight - clipHeight) * self.scale.h
+	else
+		return (canvasHeight - clipHeight) / self.scale.h
+	end
 end
 
 -- Events
@@ -135,10 +160,8 @@ function ScrollPanel:wheelmoved (x, y)
 
 		local _, _, clipWidth, clipHeight = self.clipQuad:getViewport()
 
-		self.scroll.x = utils.clamp(self.scroll.x + x * scrollFactor, 0, clipHeight)
-		self.scroll.y = utils.clamp(self.scroll.y - y * scrollFactor, 0, clipHeight)
-
-		print("scroll", self.scroll.x, self.scroll.y)
+		self.scroll.x = utils.clamp(self.scroll.x + x * scrollFactor, 0, clipWidth)
+		self.scroll.y = utils.clamp(self.scroll.y - y * scrollFactor, 0, self.maxYScroll * self.scale.h)
 
 		-- todo: move this to init or something
 		self:saveChildPositions(self.forceChildPos)

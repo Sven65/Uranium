@@ -115,7 +115,7 @@ function DropdownButton:onLeftClick ()
 end
 
 function DropdownButton:afterScaled ()
-	self.optionPanel:setSize(self.size.width, self.optionPanel.size.height)
+	self.optionPanel:setSize(self.size.width, nil)
 
 	self.optionPanel:setClipSize(self.size.width, self.listHeight * self.scale.h)
 	self.optionPanel:setPosition(nil, self.bottomRight.y)

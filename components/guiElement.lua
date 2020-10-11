@@ -67,8 +67,7 @@ function GUIElement:setSize (width, height)
 end
 
 -- sets the scale of the gui element and does math for it
-function GUIElement:setScale (wScale, hScale, scaleChildren, i)
-	i = i or 0
+function GUIElement:setScale (wScale, hScale, scaleChildren, )
 	if scaleChildren == nil then scaleChildren = true end
 
 	self.scale.w = wScale or self.scale.w
@@ -84,12 +83,8 @@ function GUIElement:setScale (wScale, hScale, scaleChildren, i)
 
 	self:setPosition(scaledXPos, scaledYPos)
 
-	print(string.rep('\t', i).."child "..i, self)
-
-	i = i+1
-
 	if scaleChildren then
-		self:doRecursive(self.children, 'setScale', wScale, hScale, scaleChildren, i)
+		self:doRecursive(self.children, 'setScale', wScale, hScale, scaleChildren)
 	end
 
 	self:calculateRealPositions()
@@ -207,7 +202,7 @@ function GUIElement:calculateRealPositions ()
 
 
 	local screenX, screenY = love.graphics.transformPoint(0, 0)
-	
+
 	self.realPosition = {
 		x = screenX,
 		y = screenY,
@@ -217,7 +212,7 @@ function GUIElement:calculateRealPositions ()
 		x = screenX + self.size.width,
 		y = screenY + self.size.height,
 	}
-	
+
 	for _, v in ipairs(self.children) do
 		v:calculateRealPositions()
 	end
