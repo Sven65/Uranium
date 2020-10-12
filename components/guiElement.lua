@@ -1,4 +1,5 @@
---- @module GUIElement
+--- The base from which all GUI Components extend
+-- @module GUIElement
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.guiElement'))
 

@@ -1,4 +1,5 @@
---- @module Label
+--- A simple text label
+-- @module Label
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.label'))
 

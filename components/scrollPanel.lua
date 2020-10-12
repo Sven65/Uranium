@@ -1,4 +1,5 @@
---- @module ScrollPanel
+--- A panel that can be scrolled
+-- @module ScrollPanel
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.ScrollPanel'))
 

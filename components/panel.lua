@@ -1,4 +1,5 @@
---- @module Panel
+--- A panel that contains other elements
+-- @module Panel
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.panel'))
 

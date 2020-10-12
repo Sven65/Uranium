@@ -1,4 +1,5 @@
---- @module FlatButton
+--- A flat UI Button
+-- @module FlatButton
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('.components.flatButton'))
 
@@ -18,7 +19,7 @@ local FlatButton = class('FlatButton', Button)
 --- Creates a new FlatButton
 -- @tparam string text The button text
 -- @tparam table colors The colors to use for the different button states
--- @field Color colors.default Default button color
+-- @field Color colors.default The color to use when the button is in the default state
 -- @field Color colors.hover The color to use when the button is hovered
 -- @field Color colors.click The color to use when the button is clicked
 -- @tparam Position position The position of the button

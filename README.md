@@ -1,5 +1,6 @@
 # Uranium
-Simple GUI for LÖVE
+A simple and flat GUI for LÖVE
+
 
 
 ## Credits

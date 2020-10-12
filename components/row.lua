@@ -1,4 +1,5 @@
---- @module Row
+--- A row with components
+-- @module Row
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.row'))
 
