@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Uranium documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Uranium</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Button.html">Button</a></li>
+  <li><a href="../modules/DropdownButton.html">DropdownButton</a></li>
+  <li><a href="../modules/FlatButton.html">FlatButton</a></li>
+  <li><a href="../modules/GUIElement.html">GUIElement</a></li>
+  <li><a href="../modules/Label.html">Label</a></li>
+  <li><a href="../modules/Panel.html">Panel</a></li>
+  <li><a href="../modules/Row.html">Row</a></li>
+  <li><strong>ScrollPanel</strong></li>
+  <li><a href="../modules/lib.color.html">lib.color</a></li>
+  <li><a href="../modules/lib.utils.html">lib.utils</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>ScrollPanel</code></h1>
+<p>
+
+</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#initialize">initialize (position, size, backgroundColor, clipRect)</a></td>
+	<td class="summary">Creates a new Scroll Panel</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setClipSize">setClipSize (width, height)</a></td>
+	<td class="summary">Sets the clip size</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setSize">setSize (width, height)</a></td>
+	<td class="summary">Sets the size of the scroll panel</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#saveChildPositions">saveChildPositions (force)</a></td>
+	<td class="summary">Saves the child positions for calculating scroll positions</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setScale">setScale (wScale, hScale)</a></td>
+	<td class="summary">Sets the scale of the scroll panel</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#calculateMaxY">calculateMaxY (clipHeight)</a></td>
+	<td class="summary">Calculates the maximum scroll height for the panel</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "initialize"></a>
+    <strong>initialize (position, size, backgroundColor, clipRect)</strong>
+    </dt>
+    <dd>
+    Creates a new Scroll Panel
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">position</span>
+            <span class="types"><span class="type">Position</span></span>
+         The position of the scroll panel
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">Size</span></span>
+         The size of the Scroll Panel
+        </li>
+        <li><span class="parameter">backgroundColor</span>
+            <span class="types"><span class="type">Color</span></span>
+         The background color for the scrollrect
+        </li>
+        <li><span class="parameter">clipRect</span>
+            <span class="types"><span class="type">Size</span></span>
+         The rect to use for limiting the drawing size
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ScrollPanel</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setClipSize"></a>
+    <strong>setClipSize (width, height)</strong>
+    </dt>
+    <dd>
+    Sets the clip size
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">number</span></span>
+         The width of the clip
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">number</span></span>
+         The height of the clip
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setSize"></a>
+    <strong>setSize (width, height)</strong>
+    </dt>
+    <dd>
+    Sets the size of the scroll panel
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">number</span></span>
+         The width of the panel
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">number</span></span>
+         The height of the panel
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "saveChildPositions"></a>
+    <strong>saveChildPositions (force)</strong>
+    </dt>
+    <dd>
+    Saves the child positions for calculating scroll positions
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">force</span>
+            <span class="types">optional <span class="type">boolean</span></span>
+         If the save should overwrite regardless
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setScale"></a>
+    <strong>setScale (wScale, hScale)</strong>
+    </dt>
+    <dd>
+    Sets the scale of the scroll panel
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">wScale</span>
+            <span class="types"><span class="type">number</span></span>
+         The wScale
+        </li>
+        <li><span class="parameter">hScale</span>
+            <span class="types"><span class="type">number</span></span>
+         The hScale
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "calculateMaxY"></a>
+    <strong>calculateMaxY (clipHeight)</strong>
+    </dt>
+    <dd>
+    Calculates the maximum scroll height for the panel
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">clipHeight</span>
+            <span class="types"><span class="type">number</span></span>
+         The cliprect height
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The maximum scroll
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-10-12 11:06:41 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

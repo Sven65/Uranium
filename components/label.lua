@@ -1,3 +1,5 @@
+--- @module Label
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.label'))
 
 local class = require(cwd .. '.lib.middleclass')
@@ -6,8 +8,8 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Label = class('Label', GUIElement)
 
--- Creates a new Label
--- @tparam Font The LÖVE font to use for the label
+--- Creates a new Label
+-- @tparam Font font The LÖVE font to use for the label
 -- @tparam string text The label text
 -- @tparam Position position The position of the label
 -- @treturn Label

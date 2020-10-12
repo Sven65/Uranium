@@ -1,3 +1,5 @@
+--- @module ScrollPanel
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.ScrollPanel'))
 
 local class = require(cwd .. '.lib.middleclass')
@@ -8,7 +10,7 @@ local ScrollPanel = class('ScrollPanel', Panel)
 
 local utils = require(cwd .. 'lib.utils')
 
--- Creates a new Scroll Panel
+--- Creates a new Scroll Panel
 -- @tparam Position position The position of the scroll panel
 -- @tparam Size size The size of the Scroll Panel
 -- @tparam Color backgroundColor The background color for the scrollrect
@@ -34,7 +36,7 @@ function ScrollPanel:initialize (position, size, backgroundColor, clipRect)
 	self.maxYScroll = nil
 end
 
--- Sets the clip size
+--- Sets the clip size
 -- @tparam number width The width of the clip
 -- @tparam number height The height of the clip
 function ScrollPanel:setClipSize (width, height)
@@ -46,7 +48,7 @@ function ScrollPanel:setClipSize (width, height)
 	self.clipQuad:setViewport(x, y, self.clipRect.width, self.clipRect.height, self.canvas:getDimensions())
 end
 
--- Sets the size of the scroll panel
+--- Sets the size of the scroll panel
 -- @tparam number width The width of the panel
 -- @tparam number height The height of the panel
 function ScrollPanel:setSize(width, height)
@@ -72,7 +74,7 @@ function ScrollPanel:setSize(width, height)
 	end
 end
 
--- Saves the child positions for calculating scroll positions
+--- Saves the child positions for calculating scroll positions
 -- @tparam ?boolean force If the save should overwrite regardless
 function ScrollPanel:saveChildPositions (force)
 	for _, v in ipairs(self.children) do
@@ -116,7 +118,7 @@ function ScrollPanel:draw ()
 	love.graphics.draw(self.canvas, self.clipQuad, self.position.x, self.position.y)
 end
 
--- Sets the scale of the scroll panel
+--- Sets the scale of the scroll panel
 -- @tparam number wScale The wScale
 -- @tparam number hScale The hScale
 function ScrollPanel:setScale (wScale, hScale)
@@ -146,7 +148,7 @@ function ScrollPanel:setScale (wScale, hScale)
 	end
 end
 
--- Calculates the maximum scroll height for the panel
+--- Calculates the maximum scroll height for the panel
 -- @tparam number clipHeight The cliprect height
 -- @treturn number The maximum scroll
 function ScrollPanel:calculateMaxY (clipHeight)

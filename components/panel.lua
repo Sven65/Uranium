@@ -1,3 +1,5 @@
+--- @module Panel
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.panel'))
 
 local class = require(cwd .. '.lib.middleclass')
@@ -6,7 +8,7 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Panel = class('Panel', GUIElement)
 
--- Creates a new Panel
+--- Creates a new Panel
 -- @tparam Position position The position of the label
 -- @tparam Size size The size of the panel
 -- @tparam Color backgroundColor The background color of the panel

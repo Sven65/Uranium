@@ -1,3 +1,6 @@
+--- A simple button, from which others extend
+-- @module Button
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.button'))
 
 local class = require(cwd .. '.lib.middleclass')
@@ -6,11 +9,11 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Button = class('Button', GUIElement)
 
--- Creates a new Button
+--- Creates a new Button
 -- @tparam string text The button text
 -- @tparam Position position The position of the button
 -- @tparam ?Size size The size of the button
--- @tparam Font The LÖVE font to use for the button
+-- @tparam Font font The LÖVE font to use for the button
 -- @treturn Button
 function Button:initialize (text, position, size, font)
 	font = font or love.graphics.getFont()
@@ -44,7 +47,7 @@ function Button:initialize (text, position, size, font)
 	self:calculateTextCenter()
 end
 
--- Sets the text offset of the button
+--- Sets the text offset of the button
 -- @tparam ?number x The x offset of the button
 -- @tparam ?number y The y offset of the button
 function Button:setTextOffset (x, y)
@@ -52,8 +55,8 @@ function Button:setTextOffset (x, y)
 	self.textOffset.y = y or self.textOffset.y
 end
 
--- Sets the background color of the button
--- @tparam Color the color to set
+--- Sets the background color of the button
+-- @tparam Color color The color to set the background color to
 function Button:setBackgroundColor (color)
 	self.backgroundColor = color
 end
@@ -67,7 +70,7 @@ function Button:calculateTextCenter ()
 end
 
 
--- Sets the buttons position
+--- Sets the buttons position
 -- @tparam number x The x position
 -- @tparam number y The y position
 function Button:setPosition (x, y)
@@ -75,7 +78,7 @@ function Button:setPosition (x, y)
 	self:calculateTextCenter()
 end
 
--- Sets the buttons font
+--- Sets the buttons font
 -- @tparam Font font The LÖVE font to use for the button
 -- @tparam number size The font size to use
 function Button:setFont (font, size)
@@ -83,7 +86,7 @@ function Button:setFont (font, size)
 	self:calculateTextCenter()
 end
 
--- Sets the button text
+--- Sets the button text
 -- @tparam string text The new text of the button
 function Button:setText (text)
 	self.text:set(text)

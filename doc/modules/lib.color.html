@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Uranium documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Uranium</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Button.html">Button</a></li>
+  <li><a href="../modules/DropdownButton.html">DropdownButton</a></li>
+  <li><a href="../modules/FlatButton.html">FlatButton</a></li>
+  <li><a href="../modules/GUIElement.html">GUIElement</a></li>
+  <li><a href="../modules/Label.html">Label</a></li>
+  <li><a href="../modules/Panel.html">Panel</a></li>
+  <li><a href="../modules/Row.html">Row</a></li>
+  <li><a href="../modules/ScrollPanel.html">ScrollPanel</a></li>
+  <li><strong>lib.color</strong></li>
+  <li><a href="../modules/lib.utils.html">lib.utils</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>lib.color</code></h1>
+<p>Utilities for working with colors more easily</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Color.new">Color.new (r, g, b)</a></td>
+	<td class="summary">Creates a new color from RGB space
+ Please note that this uses values in the range of 0 to 255.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Color:toHex">Color:toHex ()</a></td>
+	<td class="summary">Converts the color to a hex string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Color.fromHex">Color.fromHex (hex)</a></td>
+	<td class="summary">Creates a new color from a hex color</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Color:to01">Color:to01 (returnTable)</a></td>
+	<td class="summary">Converts the color to a LÖVE compatible color, in the 0 to 1 range</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Color.new"></a>
+    <strong>Color.new (r, g, b)</strong>
+    </dt>
+    <dd>
+    Creates a new color from RGB space
+ Please note that this uses values in the range of 0 to 255.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">number</span></span>
+         The red component of the color
+        </li>
+        <li><span class="parameter">g</span>
+            <span class="types"><span class="type">number</span></span>
+         The green component of the color
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">number</span></span>
+         The red component of the color
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Color</span></span>
+        The new color
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Color:toHex"></a>
+    <strong>Color:toHex ()</strong>
+    </dt>
+    <dd>
+    Converts the color to a hex string
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+        The color in hex
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Color.fromHex"></a>
+    <strong>Color.fromHex (hex)</strong>
+    </dt>
+    <dd>
+    Creates a new color from a hex color
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">hex</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         The hex to convert
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Color</span></span>
+        the created color
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Color:to01"></a>
+    <strong>Color:to01 (returnTable)</strong>
+    </dt>
+    <dd>
+    Converts the color to a LÖVE compatible color, in the 0 to 1 range
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">returnTable</span>
+            <span class="types"><span class="type">boolean</span></span>
+         If the color should return a table, default true
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        The red component</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        The green component</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        The blue component</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        The alpha component</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        {number, ...} A table of the components
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-10-12 11:06:41 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

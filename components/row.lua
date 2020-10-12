@@ -1,3 +1,5 @@
+--- @module Row
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.row'))
 
 local class = require(cwd .. '.lib.middleclass')
@@ -6,7 +8,7 @@ local GUIElement = require(cwd .. '.components.guiElement')
 
 local Row = class('Row', GUIElement)
 
--- Creates a new Row
+--- Creates a new Row
 -- @tparam Position position The position of the row
 -- @treturn Row
 function Row:initialize (position)
@@ -32,7 +34,7 @@ function Row:calculateSize ()
 	self:setSize(width, maxHeight)
 end
 
--- Adds a child to the row
+--- Adds a child to the row
 -- @tparam GUIElement child The child to add to the row
 function Row:addChild (child)
 	table.insert(self.children, child)

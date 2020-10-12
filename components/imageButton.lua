@@ -1,3 +1,5 @@
+-- @module ImageButton
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('.components.imageButton'))
 
 local class = require(cwd .. '.lib.middleclass')

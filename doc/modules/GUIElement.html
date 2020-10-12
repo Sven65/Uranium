@@ -1,0 +1,514 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Uranium documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Uranium</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Button.html">Button</a></li>
+  <li><a href="../modules/DropdownButton.html">DropdownButton</a></li>
+  <li><a href="../modules/FlatButton.html">FlatButton</a></li>
+  <li><strong>GUIElement</strong></li>
+  <li><a href="../modules/Label.html">Label</a></li>
+  <li><a href="../modules/Panel.html">Panel</a></li>
+  <li><a href="../modules/Row.html">Row</a></li>
+  <li><a href="../modules/ScrollPanel.html">ScrollPanel</a></li>
+  <li><a href="../modules/lib.color.html">lib.color</a></li>
+  <li><a href="../modules/lib.utils.html">lib.utils</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>GUIElement</code></h1>
+<p>
+
+</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#initialize">initialize (position, size, align, padding)</a></td>
+	<td class="summary">Creates a new GUIElement</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#calculateBoxes">calculateBoxes ()</a></td>
+	<td class="summary">Calculates the bottom right coordinates for the element</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setState">setState (state)</a></td>
+	<td class="summary">Sets the state for the element</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setSize">setSize (width, height)</a></td>
+	<td class="summary">Sets the size of the element</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setScale">setScale (wScale, hScale, scaleChildren)</a></td>
+	<td class="summary">Scales the GUI element and children</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setPadding">setPadding (left, right, top, bottom)</a></td>
+	<td class="summary">Sets the elements padding</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setAlign">setAlign (align)</a></td>
+	<td class="summary">Sets the elements align</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getSize">getSize ()</a></td>
+	<td class="summary">Gets the elements size</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getWidth">getWidth ()</a></td>
+	<td class="summary">Gets the elements width</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getHeight">getHeight ()</a></td>
+	<td class="summary">Gets the elements height</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setPosition">setPosition (x, y)</a></td>
+	<td class="summary">Sets the elements position</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setUnscaledPosition">setUnscaledPosition (x, y)</a></td>
+	<td class="summary">Sets the elements unscaled position</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isHovering">isHovering (x, y)</a></td>
+	<td class="summary">Checks if the provided coordinates are within the bounds of the element</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#addChild">addChild (child)</a></td>
+	<td class="summary">Adds a child to the GUI Element</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#doRecursive">doRecursive (element, func)</a></td>
+	<td class="summary">Executes the given function on the element and its children</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "initialize"></a>
+    <strong>initialize (position, size, align, padding)</strong>
+    </dt>
+    <dd>
+    Creates a new GUIElement
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">position</span>
+            <span class="types"><span class="type">Position</span></span>
+         The position of the elenent
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">Size</span></span>
+         The size of the element
+        </li>
+        <li><span class="parameter">align</span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         The alignment of the element
+        </li>
+        <li><span class="parameter">padding</span>
+            <span class="types">optional <span class="type">Padding</span></span>
+         The padding of the element
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "calculateBoxes"></a>
+    <strong>calculateBoxes ()</strong>
+    </dt>
+    <dd>
+    Calculates the bottom right coordinates for the element
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setState"></a>
+    <strong>setState (state)</strong>
+    </dt>
+    <dd>
+    Sets the state for the element
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">state</span>
+            <span class="types"><span class="type">ElementState</span></span>
+         The new state
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setSize"></a>
+    <strong>setSize (width, height)</strong>
+    </dt>
+    <dd>
+    Sets the size of the element
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">width</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The width of the element
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The height of the element
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setScale"></a>
+    <strong>setScale (wScale, hScale, scaleChildren)</strong>
+    </dt>
+    <dd>
+    Scales the GUI element and children
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">wScale</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The width scale
+        </li>
+        <li><span class="parameter">hScale</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The height scale
+        </li>
+        <li><span class="parameter">scaleChildren</span>
+            <span class="types">optional <span class="type">boolean</span></span>
+         If the elements children should also be scaled, defaults to true
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setPadding"></a>
+    <strong>setPadding (left, right, top, bottom)</strong>
+    </dt>
+    <dd>
+    Sets the elements padding
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">left</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The left padding
+        </li>
+        <li><span class="parameter">right</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The right padding
+        </li>
+        <li><span class="parameter">top</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The top padding
+        </li>
+        <li><span class="parameter">bottom</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The bottom padding
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setAlign"></a>
+    <strong>setAlign (align)</strong>
+    </dt>
+    <dd>
+    Sets the elements align
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">align</span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         The new alignment for the element
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getSize"></a>
+    <strong>getSize ()</strong>
+    </dt>
+    <dd>
+    Gets the elements size
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        The element width</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        The element height</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getWidth"></a>
+    <strong>getWidth ()</strong>
+    </dt>
+    <dd>
+    Gets the elements width
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The element width
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getHeight"></a>
+    <strong>getHeight ()</strong>
+    </dt>
+    <dd>
+    Gets the elements height
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The element height
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setPosition"></a>
+    <strong>setPosition (x, y)</strong>
+    </dt>
+    <dd>
+    Sets the elements position
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The new x position
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The new y position
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setUnscaledPosition"></a>
+    <strong>setUnscaledPosition (x, y)</strong>
+    </dt>
+    <dd>
+    Sets the elements unscaled position
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The new x position
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types">optional <span class="type">number</span></span>
+         The new y position
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "isHovering"></a>
+    <strong>isHovering (x, y)</strong>
+    </dt>
+    <dd>
+    Checks if the provided coordinates are within the bounds of the element
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         The x position to check
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         The y position to check
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        If the given coordinates are within the bounds
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "addChild"></a>
+    <strong>addChild (child)</strong>
+    </dt>
+    <dd>
+    Adds a child to the GUI Element
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">child</span>
+            <span class="types"><span class="type">GUIElement</span></span>
+         The child to add
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "doRecursive"></a>
+    <strong>doRecursive (element, func)</strong>
+    </dt>
+    <dd>
+    Executes the given function on the element and its children
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">element</span>
+            <span class="types"><span class="type">GUIElement</span></span>
+         The element to execute on
+        </li>
+        <li><span class="parameter">func</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         The function name to execute
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-10-12 11:06:41 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

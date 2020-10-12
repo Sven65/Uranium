@@ -1,3 +1,5 @@
+--- @module FlatButton
+
 local cwd = string.sub(..., 1, string.len(...) - string.len('.components.flatButton'))
 
 local min, mag, anisotropy = love.graphics.getDefaultFilter( )
@@ -13,7 +15,7 @@ local Button = require(cwd .. '.components.button')
 
 local FlatButton = class('FlatButton', Button)
 
--- Creates a new FlatButton
+--- Creates a new FlatButton
 -- @tparam string text The button text
 -- @tparam table colors The colors to use for the different button states
 -- @field Color colors.default Default button color
@@ -21,7 +23,7 @@ local FlatButton = class('FlatButton', Button)
 -- @field Color colors.click The color to use when the button is clicked
 -- @tparam Position position The position of the button
 -- @tparam ?Size size The size of the button
--- @tparam Font The LÖVE font to use for the button
+-- @tparam Font font The LÖVE font to use for the button
 -- @treturn FlatButton
 function FlatButton:initialize (text, colors, position, size, font)
 	self.colors = colors
@@ -35,7 +37,7 @@ function FlatButton:initialize (text, colors, position, size, font)
 	Button.initialize(self, text, position, size, font)
 end
 
--- Gets the scale to use when drawing the button
+--- Gets the scale to use when drawing the button
 -- @treturn number The width scale
 -- @treturn number The height scale
 function FlatButton:getDrawScale ()
