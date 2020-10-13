@@ -266,7 +266,7 @@ end
 
 function GUIElement:mousemoved (x, y)
 	self:doRecursive(self, 'mousemoved', x, y)
-	
+
 	if self:isHovering(x, y) then
 		self:setState('hover')
 
