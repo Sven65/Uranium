@@ -23,6 +23,7 @@ function Checkbox:initialize (colors, position, size)
 	self.colors = colors
 
 	self.checked = false
+	self.disabled = false
 
 	Button.initialize(self, "", position, size, iconFont)
 end
@@ -32,10 +33,20 @@ end
 function Checkbox:setChecked (isChecked)
 	self.checked = isChecked
 
+	print("Set check", isChecked, self.checked)
+
 	self:setText(self.checked and "" or "")
 end
 
+--- Sets if the checkbox is disabled
+-- @tparam boolean isDisabled If the checkbox is disabled
+function Checkbox:setDisabled (isDisabled)
+	self.disabled = isDisabled
+end
+
+
 function Checkbox:onLeftClick ()
+	if self.disabled then return end
 	self.checked = not self.checked
 
 	self:setText(self.checked and "" or "")

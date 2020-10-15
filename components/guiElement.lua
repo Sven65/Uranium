@@ -273,6 +273,10 @@ function GUIElement:mousemoved (x, y)
 		if type(self.onEnter) == 'function' then
 			self.onEnter(self)
 		end
+
+		if type(self.onDrag) == 'function' then
+			self.onDrag(self, x, y)
+		end
 	else
 		self:setState('default')
 
@@ -290,7 +294,7 @@ function GUIElement:mousepressed (x, y, button)
 		self:setState('clicked')
 
 		if type(self.onPreLeftClick) == 'function' then
-			self.onPreLeftClick(self)
+			self.onPreLeftClick(self, x, y, button)
 		end
 	end
 end
@@ -304,7 +308,7 @@ function GUIElement:mousereleased (x, y, button)
 			self:setState('hover')
 
 			if type(self.onLeftClick) == 'function' and self.currentState ~= 'clicked' then
-				self.onLeftClick(self)
+				self.onLeftClick(self, x, y, button)
 			end
 		else
 			self:setState('default')

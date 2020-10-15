@@ -20,9 +20,17 @@ function Label:initialize (font, text, position)
 	local width, height = self.text:getDimensions()
 
 	GUIElement.initialize(self, position, { width = width, height = height })
-
 end
 
+--- Sets the text of the label
+-- @tparam string text The new text for the label
+function Label:setText (text)
+	self.text:set(text)
+
+	local width, height = self.text:getDimensions()
+
+	self:setSize(width, height)
+end
 
 -- Draws the label
 function Label:draw ()
