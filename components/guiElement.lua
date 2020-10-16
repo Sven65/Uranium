@@ -47,6 +47,8 @@ function GUIElement:initialize (position, size, align, padding)
 		bottom = padding.bottom or 0,
 	}
 
+	self.disabled = false
+
 	self.bottomRight = {
 		x = position.x + size.width,
 		y = position.y + size.height,
@@ -248,6 +250,12 @@ function GUIElement:calculateRealPositions ()
 	love.graphics.pop()
 end
 
+--- Sets if the element is disabled
+-- @tparam boolean isDisabled If the element is disabled
+function GUIElement:setDisabled(disabled)
+	self.disabled = disabled
+end
+
 -- Events
 
 --- Executes the given function on the element and its children
@@ -265,6 +273,8 @@ function GUIElement:doRecursive(element, func, ...)
 end
 
 function GUIElement:mousemoved (x, y)
+	if self.disabled then return end
+
 	self:doRecursive(self, 'mousemoved', x, y)
 
 	if self:isHovering(x, y) then
@@ -288,6 +298,8 @@ function GUIElement:mousemoved (x, y)
 end
 
 function GUIElement:mousepressed (x, y, button)
+	if self.disabled then return end
+
 	self:doRecursive(self, 'mousepressed', x, y, button)
 
 	if self.currentState == 'hover' then
@@ -300,6 +312,8 @@ function GUIElement:mousepressed (x, y, button)
 end
 
 function GUIElement:mousereleased (x, y, button)
+	if self.disabled then return end
+
 	self:doRecursive(self, 'mousereleased', x, y, button)
 
 	if self.currentState == 'clicked' then
@@ -317,6 +331,8 @@ function GUIElement:mousereleased (x, y, button)
 end
 
 function GUIElement:wheelmoved (x, y)
+	if self.disabled then return end
+
 	if self.currentState ~= 'hover' then return end
 end
 

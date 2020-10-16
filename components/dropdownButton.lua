@@ -75,6 +75,10 @@ function DropdownButton:updateOptionPositions ()
 	self.optionPanel:setPosition(self.position.x, self.bottomRight.y)
 end
 
+--- Closes the Dropdown button
+function DropdownButton:close ()
+	self.isOpened = false
+end
 
 function DropdownButton:setScale (wScale, hScale)
 	FlatButton.setScale(self, wScale, hScale, false)
