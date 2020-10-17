@@ -47,11 +47,19 @@ function DropdownButton:createOptions ()
 		function optionElement.onEnter (this)
 			if not self.isOpened then return end
 
+			if type (self.onChildEnter) == 'function' then
+				self.onChildEnter(this)
+			end
+
 			this:setBackgroundColor(defaultColors.red)
 		end
 
 		function optionElement.onExit (this)
 			if not self.isOpened then return end
+
+			if type (self.onChildExit) == 'function' then
+				self.onChildExit(this)
+			end
 
 			this:setBackgroundColor(nil)
 		end
