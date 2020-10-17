@@ -278,21 +278,25 @@ function GUIElement:mousemoved (x, y)
 	self:doRecursive(self, 'mousemoved', x, y)
 
 	if self:isHovering(x, y) then
-		self:setState('hover')
-
-		if type(self.onEnter) == 'function' then
-			self.onEnter(self)
+		if self.currentState ~= 'hover' then
+			if type(self.onEnter) == 'function' then
+				self.onEnter(self)
+			end
 		end
 
 		if type(self.onDrag) == 'function' then
 			self.onDrag(self, x, y)
 		end
-	else
-		self:setState('default')
 
-		if type(self.onExit) == 'function' then
-			self.onExit(self)
+		self:setState('hover')
+	else
+		if self.currentState == 'hover' then
+			if type(self.onExit) == 'function' then
+				self.onExit(self)
+			end
 		end
+
+		self:setState('default')
 	end
 
 end
