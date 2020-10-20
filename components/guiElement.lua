@@ -173,6 +173,12 @@ end
 
 function GUIElement:setDisplay(display)
 	self.display = display
+
+	if self.children ~= nil then
+		for _, v in ipairs(self.children) do
+			v:setDisplay(display)
+		end
+	end
 end
 
 -- Draws the GUI Element
@@ -280,7 +286,7 @@ function GUIElement:doRecursive(element, func, ...)
 end
 
 function GUIElement:mousemoved (x, y)
-	if self.disabled then return end
+	if self.disabled or (not self.display) then return end
 
 	self:doRecursive(self, 'mousemoved', x, y)
 
@@ -309,7 +315,7 @@ function GUIElement:mousemoved (x, y)
 end
 
 function GUIElement:mousepressed (x, y, button)
-	if self.disabled then return end
+	if self.disabled or not self.display then return end
 
 	self:doRecursive(self, 'mousepressed', x, y, button)
 
@@ -323,7 +329,7 @@ function GUIElement:mousepressed (x, y, button)
 end
 
 function GUIElement:mousereleased (x, y, button)
-	if self.disabled then return end
+	if self.disabled or not self.display then return end
 
 	self:doRecursive(self, 'mousereleased', x, y, button)
 
@@ -342,7 +348,7 @@ function GUIElement:mousereleased (x, y, button)
 end
 
 function GUIElement:wheelmoved (x, y)
-	if self.disabled then return end
+	if self.disabled or not self.display then return end
 
 	if self.currentState ~= 'hover' then return end
 end

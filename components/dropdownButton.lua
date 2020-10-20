@@ -39,7 +39,7 @@ function DropdownButton:createOptions ()
 				self.onSelect(self, v)
 			end
 
-			if type(self.onClose) then
+			if type(self.onClose) == 'function' then
 				self.onClose(self)
 			end
 		end
@@ -169,11 +169,11 @@ end
 function DropdownButton:onLeftClick ()
 	self.isOpened = not self.isOpened
 
-	if self.isOpened and type(self.onOpen) then
+	if self.isOpened and type(self.onOpen) == 'function' then
 		self.onOpen(self)
 	end
 
-	if not self.isOpened and type(self.onClose) then
+	if not self.isOpened and type(self.onClose) == 'function' then
 		self.onClose(self)
 	end
 end
