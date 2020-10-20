@@ -41,14 +41,14 @@
   <li><a href="../modules/Button.html">Button</a></li>
   <li><a href="../modules/Checkbox.html">Checkbox</a></li>
   <li><a href="../modules/DropdownButton.html">DropdownButton</a></li>
-  <li><strong>FlatButton</strong></li>
+  <li><a href="../modules/FlatButton.html">FlatButton</a></li>
   <li><a href="../modules/GUIElement.html">GUIElement</a></li>
   <li><a href="../modules/Image.html">Image</a></li>
   <li><a href="../modules/Label.html">Label</a></li>
   <li><a href="../modules/Panel.html">Panel</a></li>
   <li><a href="../modules/Row.html">Row</a></li>
   <li><a href="../modules/ScrollPanel.html">ScrollPanel</a></li>
-  <li><a href="../modules/Slider.html">Slider</a></li>
+  <li><strong>Slider</strong></li>
   <li><a href="../modules/lib.color.html">lib.color</a></li>
   <li><a href="../modules/lib.utils.html">lib.utils</a></li>
 </ul>
@@ -61,8 +61,8 @@
 
 <div id="content">
 
-<h1>Module <code>FlatButton</code></h1>
-<p>A flat UI Button</p>
+<h1>Module <code>Slider</code></h1>
+<p>A simple slider component</p>
 <p>
 
 </p>
@@ -71,12 +71,16 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#initialize">initialize (text, colors, position, size, font)</a></td>
-	<td class="summary">Creates a new FlatButton</td>
+	<td class="name" nowrap><a href="#initialize">initialize (position, size, colors)</a></td>
+	<td class="summary">Creates a new Slider</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#getDrawScale">getDrawScale ()</a></td>
-	<td class="summary">Gets the scale to use when drawing the button</td>
+	<td class="name" nowrap><a href="#setProgress">setProgress (progress)</a></td>
+	<td class="summary">Sets the progress of the slider</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setMax">setMax (max)</a></td>
+	<td class="summary">Sets the maximum value of the slider</td>
 	</tr>
 </table>
 
@@ -89,40 +93,32 @@
     <dl class="function">
     <dt>
     <a name = "initialize"></a>
-    <strong>initialize (text, colors, position, size, font)</strong>
+    <strong>initialize (position, size, colors)</strong>
     </dt>
     <dd>
-    Creates a new FlatButton
+    Creates a new Slider
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">text</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
-         The button text
+        <li><span class="parameter">position</span>
+            <span class="types"><span class="type">Position</span></span>
+         The position of the slider
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">Size</span></span>
+         The size of the slider
         </li>
         <li><span class="parameter">colors</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
-         The colors to use for the different button states
-        </li>
-        <li><span class="parameter">position</span>
-            <span class="types"><span class="type">Position</span></span>
-         The position of the button
-        </li>
-        <li><span class="parameter">size</span>
-            <span class="types">optional <span class="type">Size</span></span>
-         The size of the button
-        </li>
-        <li><span class="parameter">font</span>
-            <span class="types"><span class="type">Font</span></span>
-         The LÖVE font to use for the button
+         The colors of the slider
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">FlatButton</span></span>
+           <span class="types"><span class="type">Slider</span></span>
 
 
 
@@ -135,23 +131,42 @@
 
 </dd>
     <dt>
-    <a name = "getDrawScale"></a>
-    <strong>getDrawScale ()</strong>
+    <a name = "setProgress"></a>
+    <strong>setProgress (progress)</strong>
     </dt>
     <dd>
-    Gets the scale to use when drawing the button
+    Sets the progress of the slider
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">progress</span>
+            <span class="types"><span class="type">number</span></span>
+         The new progress of the slider
+        </li>
+    </ul>
 
 
 
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        The width scale</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        The height scale</li>
-    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "setMax"></a>
+    <strong>setMax (max)</strong>
+    </dt>
+    <dd>
+    Sets the maximum value of the slider
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">max</span>
+            <span class="types"><span class="type">number</span></span>
+         The new maximum of the slider
+        </li>
+    </ul>
+
 
 
 

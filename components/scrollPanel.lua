@@ -110,6 +110,8 @@ end
 
 -- Draws the scroll panel
 function ScrollPanel:draw ()
+	if not self.display then return end
+
 	love.graphics.setColor(self.backgroundColor:to01())
 
 	love.graphics.rectangle( 'fill', self.position.x, self.position.y, self.clipRect.width, self.clipRect.height)

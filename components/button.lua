@@ -99,6 +99,8 @@ function Button:afterScaled ()
 end
 
 function Button:draw ()
+	if not self.display then return end
+
 	GUIElement.draw(self)
 	if self.text ~= nil then
 		if self.backgroundColor ~= nil then

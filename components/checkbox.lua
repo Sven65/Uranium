@@ -54,6 +54,8 @@ end
 
 -- Draws the Checkbox
 function Checkbox:draw ()
+	if not self.display then return end
+
 	Button.draw(self)
 
 	love.graphics.setColor(self.colors[self.currentState]:to01())

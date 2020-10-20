@@ -22,6 +22,8 @@ end
 
 -- Draws the panel
 function Panel:draw ()
+	if not self.display then return end
+
 	GUIElement.draw(self)
 
 	love.graphics.setColor(self.backgroundColor:to01())

@@ -34,6 +34,8 @@ end
 
 -- Draws the label
 function Label:draw ()
+	if not self.display then return end
+
 	GUIElement.draw(self)
 
 	love.graphics.draw(self.text, self.position.x, self.position.y)

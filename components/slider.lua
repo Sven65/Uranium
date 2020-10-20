@@ -1,4 +1,4 @@
---- A panel that contains other elements
+--- A simple slider component
 -- @module Slider
 
 local cwd = string.sub(..., 1, string.len(...) - string.len('components.slider'))
@@ -11,10 +11,12 @@ local Slider = class('Slider', GUIElement)
 
 
 --- Creates a new Slider
--- @tparam Position position The position of the label
--- @tparam Size size The size of the panel
--- @tparam Color backgroundColor The background color of the panel
--- @treturn Label
+-- @tparam Position position The position of the slider
+-- @tparam Size size The size of the slider
+-- @tparam table colors The colors of the slider
+-- @field Color colors.background The color to use for the background of the slider
+-- @field Color colors.fill The color to use for the filling bar of the slider
+-- @treturn Slider
 function Slider:initialize (position, size, colors)
 	GUIElement.initialize(self, position, size)
 
@@ -95,6 +97,8 @@ end
 
 -- Draws the slider
 function Slider:draw ()
+	if not self.display then return end
+
 	GUIElement.draw(self)
 
 	love.graphics.setColor(self.colors.background:to01())

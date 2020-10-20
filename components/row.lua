@@ -44,6 +44,8 @@ end
 
 -- Draws the row
 function Row:draw ()
+	if not self.display then return end
+
 	GUIElement.draw(self)
 
 	love.graphics.push()

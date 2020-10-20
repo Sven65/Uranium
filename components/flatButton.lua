@@ -47,8 +47,14 @@ function FlatButton:getDrawScale ()
 	return self.size.width / width, self.size.height / height
 end
 
+function FlatButton:setColor(name, color)
+	self.colors[name] = color
+end
+
 -- Draws the Button
 function FlatButton:draw ()
+	if not self.display then return end
+
 	Button.draw(self)
 
 	love.graphics.setColor(self.colors[self.currentState]:to01())

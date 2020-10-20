@@ -38,6 +38,8 @@ end
 
 -- Draws the Image
 function Image:draw ()
+	if not self.display then return end
+
 	GUIElement.draw(self)
 
 	if self.image ~= nil then

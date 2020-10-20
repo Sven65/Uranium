@@ -39,6 +39,7 @@ function GUIElement:initialize (position, size, align, padding)
 	self.children = {}
 
 	self.isChild = false
+	self.display = true
 
 	self.padding = {
 		left = padding.left or 0,
@@ -170,8 +171,14 @@ function GUIElement:setUnscaledPosition (x, y)
 	self.unscaledPosition.y = y or self.unscaledPosition.y
 end
 
+function GUIElement:setDisplay(display)
+	self.display = display
+end
+
 -- Draws the GUI Element
 function GUIElement:draw()
+	if not self.display then return end
+
 	if self.showBoxes then
 		love.graphics.setColor(0, 1, 0, 1)
 
@@ -251,7 +258,7 @@ function GUIElement:calculateRealPositions ()
 end
 
 --- Sets if the element is disabled
--- @tparam boolean isDisabled If the element is disabled
+-- @tparam boolean disabled If the element is disabled
 function GUIElement:setDisabled(disabled)
 	self.disabled = disabled
 end

@@ -155,6 +155,8 @@ end
 
 -- Draws the dropdown button
 function DropdownButton:draw ()
+	if not self.display then return end
+
 	FlatButton.draw(self)
 
 	if self.isOpened then
